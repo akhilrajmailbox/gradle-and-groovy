@@ -1,0 +1,1056 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="wf-droidserif7clato7cbreeserif7croboto-n4-inactive wf-inactive"><head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>How to Write Basic Groovy Script in SoapUI - SoapUi Tutorial #6 — Software Testing Help</title>
+<link rel="shortcut icon" href="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2010/09/favicon.ico">
+<meta name="generator" content="WordPress">
+
+	<link rel="stylesheet" href="Basic-Groovy-Script_files/style.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="Basic-Groovy-Script_files/custom.css" type="text/css" media="screen">
+		
+	
+<!-- This site is optimized with the Yoast SEO plugin v4.7.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="In this SoapUI tutorial we will learn basic scripting operations using SoapUI Groovy script and following that, we will learn different types of operators that can be used in Groovy scripts in SoapUI.">
+<meta name="robots" content="noodp">
+<link rel="canonical" href="Basic-Groovy-Script_files/a_004.html">
+<link rel="publisher" href="https://plus.google.com/+Softwaretestinghelp-Vijay">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="In this SoapUI tutorial we will learn basic scripting operations using SoapUI Groovy script and following that, we will learn different types of operators that can be used in Groovy scripts in SoapUI.">
+<meta name="twitter:title" content="How to Write Basic Groovy Script in SoapUI - SoapUi Tutorial #6">
+<meta name="twitter:site" content="@vijayshinde">
+<meta name="twitter:image" content="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Groovy-Script-in-SoapUI.jpg">
+<meta name="twitter:creator" content="@vijayshinde">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Software Testing Help » How to Write Basic Groovy Script in SoapUI – SoapUi Tutorial #6 Comments Feed" href="http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/feed/">
+<link rel="stylesheet" id="mtq_CoreStyleSheets-css" href="Basic-Groovy-Script_files/mtq_core_style.css" type="text/css" media="all">
+<link rel="stylesheet" id="mtq_ThemeStyleSheets-css" href="Basic-Groovy-Script_files/mtq_theme_style.css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-css" href="Basic-Groovy-Script_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="toc-screen-css" href="Basic-Groovy-Script_files/screen.css" type="text/css" media="all">
+<link rel="stylesheet" id="easy-social-share-buttons-css" href="Basic-Groovy-Script_files/easy-social-share-buttons.css" type="text/css" media="all">
+<link rel="stylesheet" id="essb-social-followers-counter-css" href="Basic-Groovy-Script_files/essb-followers-counter.css" type="text/css" media="all">
+<link rel="stylesheet" id="tablepress-default-css" href="Basic-Groovy-Script_files/default.css" type="text/css" media="all">
+<script src="Basic-Groovy-Script_files/ads_002"></script><script src="Basic-Groovy-Script_files/ads"></script><script src="Basic-Groovy-Script_files/ads_003"></script><script async="" src="Basic-Groovy-Script_files/analytics.js"></script><script src="Basic-Groovy-Script_files/ca-pub-4494420772031453.js"></script><script id="aweber-wjs-w4dghqszr" src="Basic-Groovy-Script_files/963770321.js"></script><script type="text/javascript" src="Basic-Groovy-Script_files/jquery_002.js"></script>
+<script type="text/javascript" src="Basic-Groovy-Script_files/jquery-migrate.js"></script>
+<script type="text/javascript" src="Basic-Groovy-Script_files/script.js"></script>
+<script type="text/javascript" src="Basic-Groovy-Script_files/api.js"></script>
+<link rel="https://api.w.org/" href="http://www.softwaretestinghelp.com/wp-json/">
+
+<link rel="alternate" type="application/json+oembed" href="http://www.softwaretestinghelp.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.softwaretestinghelp.com%2Fsoapui-tutorial-6-write-groovy-script-in-soapui%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.softwaretestinghelp.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.softwaretestinghelp.com%2Fsoapui-tutorial-6-write-groovy-script-in-soapui%2F&amp;format=xml">
+
+<!-- This site is using AdRotate v4.2 to display their advertisements - https://ajdg.solutions/products/adrotate-for-wordpress/ -->
+<!-- AdRotate CSS -->
+<style type="text/css" media="screen">
+	.g { margin:0px; padding:0px; overflow:hidden; line-height:1; zoom:1; }
+	.g img { height:auto; }
+	.g-col { position:relative; float:left; }
+	.g-col:first-child { margin-left: 0; }
+	.g-col:last-child { margin-right: 0; }
+	.g-1 { min-width:7px; max-width:194px; }
+	.b-1 { margin:7px; }
+	@media only screen and (max-width: 480px) {
+		.g-col, .g-dyn, .g-single { width:100%; margin-left:0; margin-right:0; }
+	}
+</style>
+<!-- /AdRotate CSS -->
+
+<style type="text/css">div#toc_container {background: #f9f9f9;border: 1px solid #aaaaaa;}div#toc_container p.toc_title a,div#toc_container ul.toc_list a {color: #a90000;}div#toc_container p.toc_title a:hover,div#toc_container ul.toc_list a:hover {color: #cf0606;}div#toc_container p.toc_title a:hover,div#toc_container ul.toc_list a:hover {color: #cf0606;}div#toc_container p.toc_title a:visited,div#toc_container ul.toc_list a:visited {color: #777;}</style><style data-context="foundation-flickity-css">/*! Flickity v2.0.2
+http://flickity.metafizzy.co
+---------------------------------------------- */.flickity-enabled{position:relative}.flickity-enabled:focus{outline:0}.flickity-viewport{overflow:hidden;position:relative;height:100%}.flickity-slider{position:absolute;width:100%;height:100%}.flickity-enabled.is-draggable{-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.flickity-enabled.is-draggable .flickity-viewport{cursor:move;cursor:-webkit-grab;cursor:grab}.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down{cursor:-webkit-grabbing;cursor:grabbing}.flickity-prev-next-button{position:absolute;top:50%;width:44px;height:44px;border:none;border-radius:50%;background:#fff;background:hsla(0,0%,100%,.75);cursor:pointer;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.flickity-prev-next-button:hover{background:#fff}.flickity-prev-next-button:focus{outline:0;box-shadow:0 0 0 5px #09F}.flickity-prev-next-button:active{opacity:.6}.flickity-prev-next-button.previous{left:10px}.flickity-prev-next-button.next{right:10px}.flickity-rtl .flickity-prev-next-button.previous{left:auto;right:10px}.flickity-rtl .flickity-prev-next-button.next{right:auto;left:10px}.flickity-prev-next-button:disabled{opacity:.3;cursor:auto}.flickity-prev-next-button svg{position:absolute;left:20%;top:20%;width:60%;height:60%}.flickity-prev-next-button .arrow{fill:#333}.flickity-page-dots{position:absolute;width:100%;bottom:-25px;padding:0;margin:0;list-style:none;text-align:center;line-height:1}.flickity-rtl .flickity-page-dots{direction:rtl}.flickity-page-dots .dot{display:inline-block;width:10px;height:10px;margin:0 8px;background:#333;border-radius:50%;opacity:.25;cursor:pointer}.flickity-page-dots .dot.is-selected{opacity:1}</style>
+<script type="text/javascript">var essb_settings = {"ajax_url":"http:\/\/www.softwaretestinghelp.com\/wp-admin\/admin-ajax.php","essb3_nonce":"3530e42875","essb3_plugin_url":"http:\/\/www.softwaretestinghelp.com\/wp-content\/plugins\/easy-social-share-buttons3","essb3_facebook_total":true,"essb3_admin_ajax":false,"essb3_internal_counter":false,"essb3_stats":false,"essb3_ga":false,"essb3_ga_mode":"simple","essb3_counter_button_min":1,"essb3_counter_total_min":10,"blog_url":"http:\/\/www.softwaretestinghelp.com\/","ajax_type":"wp","essb3_postfloat_stay":false,"essb3_no_counter_mailprint":false,"essb3_single_ajax":false,"twitter_counter":"self","post_id":5884};var essb_buttons_exist = !!document.getElementsByClassName("essb_links"); if(essb_buttons_exist == true) { document.addEventListener("DOMContentLoaded", function(event) { var ESSB_CACHE_URL = "http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/"; if(ESSB_CACHE_URL.indexOf("?") > -1) { ESSB_CACHE_URL += "&essb_counter_cache=rebuild"; } else { ESSB_CACHE_URL += "?essb_counter_cache=rebuild"; }; var xhr = new XMLHttpRequest(); xhr.open("GET",ESSB_CACHE_URL,true); xhr.send(); });}</script><link rel="amphtml" href="http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/amp/"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<link rel="icon" href="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2016/02/cropped-180x180-sth-32x32.png" sizes="32x32">
+<link rel="icon" href="http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2016/02/cropped-180x180-sth-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon-precomposed" href="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2016/02/cropped-180x180-sth-180x180.png">
+<meta name="msapplication-TileImage" content="http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2016/02/cropped-180x180-sth-270x270.png">
+<style>.ios7.web-app-mode.has-fixed header{ background-color: rgba(85,85,85,.88);}</style>
+<script async="async" src="Basic-Groovy-Script_files/gpt.js"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/1018030/PostandPages_336x280_ATF', [[336, 280], [300, 250]], 'div-gpt-ad-1494346285367-0').addService(googletag.pubads());
+    googletag.defineSlot('/1018030/PostsandPages_336x280_BTF', [[336, 280], [300, 250]], 'div-gpt-ad-1494346285367-1').addService(googletag.pubads());
+    googletag.defineSlot('/1018030/RON_Desktop_160x600_ATF', [[120, 600], [160, 600]], 'div-gpt-ad-1494346285367-2').addService(googletag.pubads());
+    googletag.enableServices();
+  });
+</script>
+
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="http://cdn2.softwaretestinghelp.com/">
+<link rel="dns-prefetch" href="http://cdn.softwaretestinghelp.com/">
+<link rel="dns-prefetch" href="http://tpc.googlesyndication.com/">
+<link rel="dns-prefetch" href="http://pagead2.googlesyndication.com/">
+<link rel="dns-prefetch" href="http://googleads.g.doubleclick.net/">
+<link rel="dns-prefetch" href="http://ajax.googleapis.com/">
+<link rel="dns-prefetch" href="http://fonts.gstatic.com/">
+<link rel="dns-prefetch" href="http://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="http://cm.g.doubleclick.net/">
+<link rel="dns-prefetch" href="http://forms.aweber.com/">
+<meta name="google-site-verification" content="o2iipAmYEzV1wbKv9UyaaLF92TMepUUEdBsm-vqsOXg">
+<script type="text/javascript" async="" src="Basic-Groovy-Script_files/bsa.js"></script><script src="Basic-Groovy-Script_files/pubads_impl_119.js" async=""></script><link rel="stylesheet" href="Basic-Groovy-Script_files/css.css"><script src="Basic-Groovy-Script_files/jquery_004.js"></script><script type="text/javascript" id="_bsap_js_56ab2c9b507d9fc752d33e963c68be68" src="Basic-Groovy-Script_files/s_56ab2c9b507d9fc752d33e963c68be68.js" async="async"></script><script type="text/javascript" src="Basic-Groovy-Script_files/pro.js" id="_bsap_premium_pro"></script><link rel="prefetch" href="Basic-Groovy-Script_files/container_003.html"><script type="text/javascript" id="_bsaPRO_js" src="Basic-Groovy-Script_files/a.js" async="async"></script></head>
+
+<body class="custom">
+<div id="header">
+<div id="logo">
+		<a href="http://www.softwaretestinghelp.com/" title="Software Testing Help">Software Testing Help</a>
+			
+		<p id="tagline">Software Testing Complete Guide</p>
+		
+<div style="display:block;float:right;margin: 20px 10px 0px 0px;">
+<form action="http://www.google.com" id="cse-search-box" target="_blank">
+  <div>
+    <input name="cx" value="partner-pub-4494420772031453:2717605672" type="hidden">
+    <input name="ie" value="UTF-8" type="hidden">
+    <input name="q" size="30" style="background: rgb(255, 255, 255) url(&quot;https://www.google.com/cse/static/images/1x/googlelogo_lightgrey_46x16dp.png&quot;) no-repeat scroll left center; text-indent: 48px;" placeholder="Custom Search" type="text">
+    <input name="sa" value="Search" type="submit">
+  </div>
+<input name="siteurl" value="www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/" type="hidden"><input name="ref" value="www.google.co.in/" type="hidden"><input name="ss" type="hidden"></form>
+
+<script type="text/javascript" src="Basic-Groovy-Script_files/brand"></script>
+</div>	
+
+</div>
+</div>
+	
+<!-- BuySellAds.com Ad Code -->
+<script type="text/javascript">
+(function(){
+  var bsa = document.createElement('script');
+     bsa.type = 'text/javascript';
+     bsa.async = true;
+     bsa.src = '//s3.buysellads.com/ac/bsa.js';
+  (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+})();
+</script>
+<!-- End BuySellAds.com Ad Code -->
+
+<div id="container">
+<div align="center">
+<br>
+<script async="" src="Basic-Groovy-Script_files/adsbygoogle.js"></script>
+<!-- STH link unit header -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:15px" data-ad-client="ca-pub-4494420772031453" data-ad-slot="9842393993" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:15px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:15px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:728px;height:15px;" frameborder="0" height="15" width="728"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<br><br><br>	
+		<ul>
+		</ul>
+	</div>
+	<div id="content_box">
+		
+		<div id="content" class="posts single">
+			
+				
+		<h1>How to Write Basic Groovy Script in SoapUI – SoapUi Tutorial #6</h1>
+		<p class="post_date">Posted In | <a href="http://www.softwaretestinghelp.com/category/automation-testing/" rel="category tag">Automation Testing</a>, <a href="http://www.softwaretestinghelp.com/category/software-testing-tools/" rel="category tag">Software Testing Tools</a>, <a href="http://www.softwaretestinghelp.com/category/testing-web-services/" rel="category tag">Testing Web Services</a><time datetime="2017-04-17T14:06:05+00:00" itemprop="dateModified"> | Last Updated: "April 17, 2017" </time></p>
+			<div class="entry">
+				<p>In this SoapUI tutorial we will learn <strong>basic scripting operations using Groovy script</strong> and following that, we will learn different types of operators that can be used in Groovy scripts in SoapUI.</p>
+<!-- Quick Adsense WordPress Plugin: http://quicksense.net/ -->
+<div style="float:right;margin:7px 0 7px 7px;">
+<!-- /1018030/PostandPages_336x280_ATF -->
+<div id="div-gpt-ad-1494346285367-0" data-google-query-id="CIDu3MapitQCFUWajgod2LABWg">
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1494346285367-0'); });
+</script>
+<div id="google_ads_iframe_/1018030/PostandPages_336x280_ATF_0__container__" style="border: 0pt none; display: inline-block; width: 336px; height: 280px;"><iframe style="border: 0px none; vertical-align: bottom;" src="Basic-Groovy-Script_files/container_003.html" id="google_ads_iframe_/1018030/PostandPages_336x280_ATF_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" data-is-safeframe="true" frameborder="0" height="280" width="336"></iframe></div></div>
+</div>
+
+<p>Let’s begin with groovy scripting and how we can use it in SoapUI Pro. This is the 6th tutorial in our <a href="http://www.softwaretestinghelp.com/web-services-api-testing-tool-soapui-tutorial-1/"><strong>SoapUI free online training series</strong></a>. <em><strong><span id="more-5884"></span></strong></em></p>
+<h3><a href="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Groovy-Script-in-SoapUI.jpg"><img class="alignnone size-full wp-image-6000" src="Basic-Groovy-Script_files/Groovy-Script-in-SoapUI.jpg" alt="Groovy Script in SoapUI" srcset="http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Groovy-Script-in-SoapUI.jpg 485w, http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Groovy-Script-in-SoapUI-300x208.jpg 300w" sizes="(max-width: 485px) 100vw, 485px" height="336" width="485"></a></h3>
+<h3><strong>SoapUI Groovy Script Test step:</strong></h3>
+<p><a href="http://www.groovy-lang.org/" target="_blank">Groovy Script</a>
+ test step is included for custom automation test script creation in 
+SoapUI / Pro. It can be used for functional/ load/regression.</p>
+<p>Groovy is a scripting language which internally includes all the java
+ libraries, therefore all java related keywords and functions can be 
+used in the groovy script directly. The Java libraries come with SoapUI 
+and are integrated during the SoapUI Pro installation itself.</p>
+<p><strong><u>Here is how Groovy script can be added to a test:</u></strong></p>
+<p><strong>Step #1.</strong> In SoapUI Pro create a <a href="http://www.softwaretestinghelp.com/soapui-tutorial-4-working-with-soapui-projects/" target="_blank">SOAP project with valid WSDL document</a>. Under the project, create a test suite with a desired name. Inside the test suite, add groovy script test step as shown below:</p>
+<p><a href="http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-Operators-1.jpg"><img class="alignnone size-full wp-image-5885" src="Basic-Groovy-Script_files/Working-with-Operators-1.jpg" alt="Working with Operators 1" srcset="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-Operators-1.jpg 458w, http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-Operators-1-300x261.jpg 300w, http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-Operators-1-280x245.jpg 280w" sizes="(max-width: 458px) 100vw, 458px" height="399" width="458"></a></p>
+<p><strong>Step #2.</strong> Enter the name of the step in the dialog that comes up as below and Click OK</p>
+<p><a href="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-Operators-2.jpg"><img class="alignnone size-full wp-image-5886" src="Basic-Groovy-Script_files/Working-with-Operators-2.jpg" alt="Working with Operators 2" srcset="http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-Operators-2.jpg 309w, http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-Operators-2-300x133.jpg 300w" sizes="(max-width: 309px) 100vw, 309px" height="137" width="309"></a></p>
+<p><strong>Step #3.</strong> An editor where you can write your script 
+is displayed. Alternately you can double click on the groovy step name 
+from your test case (Groovy step is the one that has a star prefix to 
+it).</p>
+<p><em>(Click on image for enlarged view)</em></p>
+<p><a href="http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-66.jpg"><img class="alignnone  wp-image-5997" src="Basic-Groovy-Script_files/Working-with-operators-66.jpg" alt="Working with operators 66" srcset="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-66.jpg 700w, http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-66-300x263.jpg 300w, http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-66-280x245.jpg 280w" sizes="(max-width: 484px) 100vw, 484px" height="424" width="484"></a></p>
+<p><strong><span style="text-decoration: underline;">For example</span></strong>: Let us write a simple script that shows a message in the log. Here is the one line script.</p>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log.info ”soapUI script”</strong></p>
+<p><strong>Step #4.</strong> To execute the above script in SoapUI Pro, click on the Run icon and see the results in the Log Output section.</p>
+<p><a href="http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-44.jpg"><img class="alignnone size-full wp-image-5996" src="Basic-Groovy-Script_files/Working-with-operators-44.jpg" alt="Working with operators 44" srcset="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-44.jpg 311w, http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-44-289x300.jpg 289w" sizes="(max-width: 311px) 100vw, 311px" height="323" width="311"></a></p>
+<p><strong>Few points:</strong></p>
+<ul>
+<li>Test script execution: When the run button inside the groovy editor 
+is clicked, the code inside the groovy step will only get executed. On 
+the other hand, when the Run button is clicked for the entire test case,
+ all the steps are executed in an order.</li>
+<li>This way any kind of programming can be done to the test scripts to add validations as required.</li>
+<li>There can be any number of groovy test steps to a test case.</li>
+<li>With Groovy script it is not required to compile and interpret 
+separately to execute the code like other programming languages such as 
+C, C++, Java, etc.</li>
+<li>Steps can be enabled or disabled inside a test suite by using the comment feature. To do so, use the following:</li>
+</ul>
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //</strong> – indicates single line comment and<br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* &lt;some script&gt; */</strong> – denotes multi-line comment</p>
+<!-- Quick Adsense WordPress Plugin: http://quicksense.net/ -->
+<div style="float:none;margin:0px;">
+<p>------------<br>
+<!-- /1018030/PostsandPages_336x280_BTF -->
+</p><div id="div-gpt-ad-1494346285367-1" data-google-query-id="CKzx9sapitQCFUFnjgodayMOHQ">
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1494346285367-1'); });
+</script>
+<div id="google_ads_iframe_/1018030/PostsandPages_336x280_BTF_0__container__" style="border: 0pt none; display: inline-block; width: 336px; height: 280px;"><iframe style="border: 0px none; vertical-align: bottom;" src="Basic-Groovy-Script_files/container_003.html" id="google_ads_iframe_/1018030/PostsandPages_336x280_BTF_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" data-is-safeframe="true" frameborder="0" height="280" width="336"></iframe></div></div>
+<p></p>
+</div>
+
+<h3>Arithmetic Operations:</h3>
+<p>In the groovy step editor all of the below can be performed:</p>
+<p><em>/* Adding Two numbers */</em><br>
+<em>int a;</em><br>
+<em>int b;</em><br>
+<em>int c;</em></p>
+<p><em>// Assigning integer value to the variables A and B</em><br>
+<em>a = 100;</em><br>
+<em>b = 200; </em></p>
+<p><em>// Adding A value and B value and assign the resultant value to the variable C</em><br>
+<em>c = a + b</em></p>
+<p><em>// Show the resultant value in the Log</em><br>
+<em>log.info(“Result :” + c);</em></p>
+<p>In the above script, A, B and C are the variables which are used to store or transfer the values.</p>
+<p><em>(Click on image for enlarged view)</em></p>
+<p><a href="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-55.jpg"><img class="alignnone  wp-image-5995" src="Basic-Groovy-Script_files/Working-with-operators-55.jpg" alt="Working with operators 55" srcset="http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-55.jpg 705w, http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-55-300x120.jpg 300w, http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-operators-55-700x283.jpg 700w" sizes="(max-width: 486px) 100vw, 486px" height="195" width="486"></a></p>
+<p><strong>Note:</strong> Variables in Groovy script are case sensitive. Exercise caution when using them.</p>
+<p>The following are the operators supported in Groovy:</p>
+<p><strong>Arithmetic Operators:</strong></p>
+<p><strong>+&nbsp;</strong>&nbsp;&nbsp; Addition operator / String concatenation<br>
+<strong>–</strong> &nbsp;&nbsp; Subtraction operator<br>
+<strong>*&nbsp;</strong>&nbsp;&nbsp; Multiplication operator<br>
+<strong>/&nbsp;</strong>&nbsp;&nbsp; Division operator<br>
+<strong>%</strong>&nbsp;&nbsp; Remainder operator</p>
+<p><em>// Arithmetic Operators Samples </em></p>
+<p><em>// Addition Operator</em><br>
+<em>int x1 = 100 + 200</em><br>
+<em>log.info (“Addition Result :” + x1);</em></p>
+<p><em>// Concatenation of Two Strings using PLUS ( + ) operator</em><br>
+<em>String city =”Timothy E.” + ” Shepherd”;</em><br>
+<em>log.info(“String Concatenation:” + city);</em></p>
+<p><em>// Subtraction Operator</em><br>
+<em>int x2 = 200 – 100</em><br>
+<em>log.info (“Subtraction :” + x2);</em></p>
+<p><em>// Multiplication Operator</em><br>
+<em>int x3 = 10 * 200</em><br>
+<em>log.info (“Multiplication :” + x3);</em></p>
+<p><em>// Division Operator</em><br>
+<em>int x4 = 200 / 10</em><br>
+<em>log.info (“Division :” + x4);</em></p>
+<p><em>// Modulus Operator</em><br>
+<em>int x5 = 10 % 3</em><br>
+<em>log.info (“Reminder or Modulus:” + x5);</em></p>
+<p>The following is a screenshot of all of the above scripts and the respective results:</p>
+<p><a href="http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-Operators-6.jpg"><img class="alignnone size-full wp-image-5891" src="Basic-Groovy-Script_files/Working-with-Operators-6.jpg" alt="Working with Operators 6" srcset="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-Operators-6.jpg 422w, http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2015/05/Working-with-Operators-6-230x300.jpg 230w" sizes="(max-width: 422px) 100vw, 422px" height="550" width="422"></a></p>
+<p><span style="text-decoration: underline;"><strong>Unary Operators:</strong></span></p>
+<p>Unary operators are the ones that work with only one operand. For example: <strong>++ </strong>– it is called as <strong>Increment operator</strong> which increments the current value by 1</p>
+<p><strong>Here’s the <span style="text-decoration: underline;">example</span>:</strong></p>
+<p><em>int A = 100;</em><br>
+<em>A++;</em> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>// Equivalent to A = A + 1</em><br>
+<em>log.info (A);</em></p>
+<p>The above script will produce the output as 101. This increment 
+operation is called post increment. Similarly we can use this operator 
+as a pre-increment operation as below:</p>
+<p><em>int A = 100;</em><br>
+<em>log.info (++A);</em></p>
+<p>There is also (–) the decrement operator. It will decrease the current value by <strong>1</strong>. We can implement this operator to the above discussed examples.</p>
+<p><em>int A = 100;</em><br>
+A–; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <em>// Equivalent to A = A – 1</em><br>
+<em>log.info (A);</em></p>
+<p>The above script will produce the following output:<br>
+<em>Mon Jul 21 18:02:16 IST 2014:INFO:99</em></p>
+<p>The pre and post operations can be used with decrement operator as well.</p>
+<p><span style="text-decoration: underline;"><strong>Assignment Operators:</strong></span></p>
+<p>The basic assignment operator is equal sign (=). Likewise, there are 
+other useful assignment operators available. They are +=, -=, *=, /=, 
+%=.</p>
+<p>Let us see the samples.</p>
+<p><em>int A=100;</em><br>
+<em>A += 10;</em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>// Similar to A = A + 10</em><br>
+<em>log.info(A);</em></p>
+<p>The above script produces 110. If we use minus equal to operator in the below script, output will be 40.</p>
+<p><em>int B=50;</em><br>
+<em>B -= 10;</em><br>
+<em>log.info(B);</em></p>
+<p>Likewise we can use the remaining operators like this.</p>
+<p><em>int C=10;</em><br>
+<em>C *= 10;</em><br>
+<em>log.info(C);</em></p>
+<p>And,</p>
+<p><em>int D=50;</em><br>
+<em>D /= 10;</em><br>
+<em>log.info(D);</em></p>
+<p>Here’s the reminder operator is used as</p>
+<p><em>int E=10;</em><br>
+<em>E %= 3;</em><br>
+<em>log.info(E);</em></p>
+<p>This will divide the value 10 by 3 and the remainder will be assigned to the variable “E”.</p>
+<h3><strong>Conclusion: </strong></h3>
+<p>This is just a start and there are many other operators available and
+ supported by groovy such as logical, comparison, conditional etc. which
+ will be discussed in the upcoming tutorials. In <span style="text-decoration: underline;"><strong>next SoapUI tutorial</strong></span> we will also learn how to deal with properties in SoapUI Groovy scripts.</p>
+<p><em><strong>Do come along with us and please post your comments and questions for us below.</strong></em></p>
+
+<!-- Quick Adsense WordPress Plugin: http://quicksense.net/ -->
+<div style="float:none;margin:0px;">
+<p>
+<script async="" src="Basic-Groovy-Script_files/adsbygoogle.js"></script>
+<!-- STH Link unit post end -->
+<ins class="adsbygoogle" style="display: block; height: 30px;" data-ad-client="ca-pub-4494420772031453" data-ad-slot="1121595590" data-ad-format="link" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:30px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:30px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:468px;height:30px;" frameborder="0" height="30" width="468"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</p>
+</div>
+
+<div style="font-size:0px;height:0px;line-height:0px;margin:0;padding:0;clear:both"></div><div class="essb_links essb_counters essb_displayed_bottom essb_share essb_template_copy-retina essb_369747426 print-no" id="essb_displayed_bottom_369747426" data-essb-postid="5884" data-essb-position="bottom" data-essb-button-style="button" data-essb-template="copy-retina" data-essb-counter-pos="insidename" data-essb-url="http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/" data-essb-twitter-url="http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/" data-essb-instance="369747426"><ul class="essb_links_list"><li class="essb_item essb_totalcount_item" style="display: none !important;" data-counter-pos="insidename"><span class="essb_totalcount essb_t_l" title="Total: "><span class="essb_total_text">Total: </span><span class="essb_t_nb">93</span></span></li><li class="essb_item essb_link_facebook nolightbox"> <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/&amp;t=How%20to%20Write%20Basic%20Groovy%20Script%20in%20SoapUI%20-%20SoapUi%20Tutorial%20#6&amp;redirect_uri=http://www.softwaretestinghelp.com?sharing-thankyou=yes" title="" onclick="essb_window('https://www.facebook.com/sharer/sharer.php?u=http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/&amp;t=How to Write Basic Groovy Script in SoapUI - SoapUi Tutorial #6&amp;redirect_uri=http://www.softwaretestinghelp.com?sharing-thankyou=yes','facebook','369747426'); return false;" target="_blank" rel="nofollow"><span class="essb_icon essb_icon_facebook"></span><span class="essb_network_name">Share<span class="essb_counter_insidename" data-cnt="45" data-cnt-short="45">45</span></span></a></li><li class="essb_item essb_link_twitter nolightbox"> <a href="#" title="" onclick="essb_window('https://twitter.com/intent/tweet?text=&amp;url=http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/&amp;counturl=http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/','twitter','369747426'); return false;" target="_blank" rel="nofollow"><span class="essb_icon essb_icon_twitter"></span><span class="essb_network_name">Tweet<span class="essb_counter_insidename" data-cnt="1" data-cnt-short="1">1</span></span></a></li><li class="essb_item essb_link_google nolightbox"> <a href="https://plus.google.com/share?url=http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/" title="" onclick="essb_window('https://plus.google.com/share?url=http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/','google','369747426'); return false;" target="_blank" rel="nofollow"><span class="essb_icon essb_icon_google"></span><span class="essb_network_name">+1<span class="essb_counter_insidename" data-cnt="10" data-cnt-short="10">10</span></span></a></li><li class="essb_item essb_link_pinterest nolightbox"> <a href="#" title="" onclick="essb_pinterest_picker('369747426'); return false;" target="_blank" rel="nofollow"><span class="essb_icon essb_icon_pinterest"></span><span class="essb_network_name">Pin<span class="essb_counter_insidename" data-cnt="5" data-cnt-short="5">5</span></span></a></li><li class="essb_item essb_link_linkedin nolightbox"> <a href="https://www.linkedin.com/shareArticle?mini=true&amp;ro=true&amp;trk=EasySocialShareButtons&amp;title=How%20to%20Write%20Basic%20Groovy%20Script%20in%20SoapUI%20-%20SoapUi%20Tutorial%20#6&amp;url=http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/" title="" onclick="essb_window('https://www.linkedin.com/shareArticle?mini=true&amp;ro=true&amp;trk=EasySocialShareButtons&amp;title=How to Write Basic Groovy Script in SoapUI - SoapUi Tutorial #6&amp;url=http://www.softwaretestinghelp.com/soapui-tutorial-6-write-groovy-script-in-soapui/','linkedin','369747426'); return false;" target="_blank" rel="nofollow"><span class="essb_icon essb_icon_linkedin"></span><span class="essb_network_name">Share<span class="essb_counter_insidename" data-cnt="32" data-cnt-short="32">32</span></span></a></li></ul></div>							</div>
+
+<p>
+</p><div class="navigation">
+<p>← <a href="http://www.softwaretestinghelp.com/soapui-tutorial-5-soapui-assertions/" rel="prev"><strong>PREV POST</strong></a>  |  <a href="http://www.softwaretestinghelp.com/soapui-tutorial-7-properties-in-soapui-groovy-script/" rel="next"><strong>NEXT POST</strong></a> →</p>
+</div>
+
+<p></p>
+
+<h3>Recommended reading</h3> 
+<script async="" src="Basic-Groovy-Script_files/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display: block; height: 327px;" data-ad-format="autorelaxed" data-ad-client="ca-pub-4494420772031453" data-ad-slot="5853477592" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:327px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:327px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;width:468px;height:327px;" frameborder="0" height="327" width="468"></iframe></ins></ins></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+		
+<!-- You can start editing here. -->
+
+
+<div id="comments">
+
+	<h3 class="comment_intro">14 comments ↓</h3>
+
+	
+	<dl id="comment_list">
+
+			
+		<dt id="comment-183671">
+			<span class="comment_num"><a href="#comment-183671" title="Permalink to this comment">#1</a></span>
+			<strong>Nikunj </strong>
+		</dt>
+		<dd class="entry">
+			<p>Good basic start with groovy<br>
+Looking forward to up coming tutorial on Groovy Scripting</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-184683">
+			<span class="comment_num"><a href="#comment-184683" title="Permalink to this comment">#2</a></span>
+			<strong>Thanh </strong>
+		</dt>
+		<dd class="entry">
+			<p>Good tutorial, thanks</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-184718">
+			<span class="comment_num"><a href="#comment-184718" title="Permalink to this comment">#3</a></span>
+			<strong>Ankit Tiwari </strong>
+		</dt>
+		<dd class="entry">
+			<p>I am job less please can you help me</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-193462">
+			<span class="comment_num"><a href="#comment-193462" title="Permalink to this comment">#4</a></span>
+			<strong><a href="http://www.gauravkhurana.in/" rel="external nofollow" class="url">Gaurav Khurana</a> </strong>
+		</dt>
+		<dd class="entry">
+			<p>Thanks for making things so easy to understand, </p>
+<p>Groovy is looking quite similar to other languages only instead of print/printf/System.println<br>
+here we have log.info();</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-200142">
+			<span class="comment_num"><a href="#comment-200142" title="Permalink to this comment">#5</a></span>
+			<strong>Peraveen Kumar </strong>
+		</dt>
+		<dd class="entry">
+			<p>Executing this groovy script throws error like </p>
+<p>”<br>
+org.codehaus.groovy.control.MultipleCompilationErrorsException: startup 
+failed: Script11.groovy: 14: Invalid variable name. Must start with a 
+letter but was: ” . At [14:20] @ line 14, column 20. log.info (“Result 
+:” + c); ^ org.codehaus.groovy.syntax.SyntaxException: Invalid variable 
+name. Must start with a letter but was: ” . At [14:20] @ line 14, column
+ 20. at 
+org.codehaus.groovy.control.CompilationUnit$15.call(CompilationUnit.java:760)
+ at 
+org.codehaus.groovy.control.CompilationUnit.applyToPrimaryClassNodes(CompilationUnit.java:1036)
+ at 
+org.codehaus.groovy.control.CompilationUnit.doPhaseOperation(CompilationUnit.java:572)
+ at 
+org.codehaus.groovy.control.CompilationUnit.processPhaseOperations(CompilationUnit.java:550)
+ at 
+org.codehaus.groovy.control.CompilationUnit.compile(CompilationUnit.java:527)
+ at 
+groovy.lang.GroovyClassLoader.doParseClass(GroovyClassLoader.java:279) 
+at groovy.lang.GroovyClassLoader.parseClass(GroovyClassLoader.java:258) 
+at groovy.lang.GroovyShell.parseClass(GroovyShell.java:613) at 
+groovy.lang.GroovyShell.parse(GroovyShell.java:625) at 
+groovy.lang.GroovyShell.parse(GroovyShell.java:652) at 
+groovy.lang.GroovyShell.parse(GroovyShell.java:643) at 
+com.eviware.soapui.support.scripting.groovy.SoapUIGroovyScriptEngine.compile(SoapUIGroovyScriptEngine.java:152)
+ at 
+com.eviware.soapui.support.scripting.groovy.SoapUIGroovyScriptEngine.run(SoapUIGroovyScriptEngine.java:97)
+ at 
+com.eviware.soapui.impl.wsdl.teststeps.WsdlGroovyScriptTestStep.run(WsdlGroovyScriptTestStep.java:154)
+ at 
+com.eviware.soapui.impl.wsdl.panels.teststeps.GroovyScriptStepDesktopPanel$RunAction$1.run(GroovyScriptStepDesktopPanel.java:277)
+ at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) at
+ java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) at 
+java.lang.Thread.run(Unknown Source) 1 error”</p>
+<p>pls help me… what to do here..</p>
+<p>/* Adding Two numbers */<br>
+int a;<br>
+int b;<br>
+int c;</p>
+<p>// Assigning integer value to the variables A and B<br>
+a = 100;<br>
+b = 200;</p>
+<p>// Adding A value and B value and assign the resultant value to the variable C<br>
+c = a + b</p>
+<p>// Show the resultant value in the Log<br>
+log.info(“Result :” + c);</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-215855">
+			<span class="comment_num"><a href="#comment-215855" title="Permalink to this comment">#6</a></span>
+			<strong>sonya </strong>
+		</dt>
+		<dd class="entry">
+			<p>I have a JDBC step defined in my soapui script , i want to extract
+ a value like this value from the query response , and assign it to a 
+project variable , is that possible from groovy scripting ?</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-220622">
+			<span class="comment_num"><a href="#comment-220622" title="Permalink to this comment">#7</a></span>
+			<strong>Pete </strong>
+		</dt>
+		<dd class="entry">
+			<p>The groovy script errors are due to formatting issues in the 
+example scripts.  Re-enter the script quote (“) characters manually.  
+Some of the hyphens (-) need to be re-entered manually as well.</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-238306">
+			<span class="comment_num"><a href="#comment-238306" title="Permalink to this comment">#8</a></span>
+			<strong>asif </strong>
+		</dt>
+		<dd class="entry">
+			<p>pls help me guys<br>
+step 1. generate random number in groovy script step 2. connect to 
+database step 3. verify whether generated random number exist in 
+database or not(check in all rows) if random number exist stop execution
+ else continue execution</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-240238">
+			<span class="comment_num"><a href="#comment-240238" title="Permalink to this comment">#9</a></span>
+			<strong>Swapnil </strong>
+		</dt>
+		<dd class="entry">
+			<p>@Praveen:  in your case you need to put the string ‘Result’ in single quote and not in double quote.</p>
+<p>tested code-<br>
+log.info ‘soapUI script’</p>
+<p>int a;<br>
+int b;<br>
+int c;</p>
+<p>a=100;<br>
+b=200;</p>
+<p>c=a+b;</p>
+<p>log.info(‘Result: ‘+c);</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-242231">
+			<span class="comment_num"><a href="#comment-242231" title="Permalink to this comment">#10</a></span>
+			<strong>Mark </strong>
+		</dt>
+		<dd class="entry">
+			<p>Hi </p>
+<p>I needed help with a task…I have  8 restful service calls .I need to test them in a sequence.<br>
+I need to pass the output of preceding restful service as input to the next service.<br>
+I have to use SOAP UI and maybe Groovy Scripting / Java<br>
+Pls let me know if you can help me.Pls let me know if you need more details.</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-259772">
+			<span class="comment_num"><a href="#comment-259772" title="Permalink to this comment">#11</a></span>
+			<strong>sathya </strong>
+		</dt>
+		<dd class="entry">
+			<p>Thanks you so much for sharing this tutorial.</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-290032">
+			<span class="comment_num"><a href="#comment-290032" title="Permalink to this comment">#12</a></span>
+			<strong>Chaitanya </strong>
+		</dt>
+		<dd class="entry">
+			<p>Hai All..<br>
+I am a Beginner in Soap UI<br>
+I Want to Know information about groovy script for JSon model<br>
+Here example are for XML model<br>
+how to write groovy script for Request and Resonse in Json Model</p>
+<p>Pls any one help Me fix this…….</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-291667">
+			<span class="comment_num"><a href="#comment-291667" title="Permalink to this comment">#13</a></span>
+			<strong>Mohamedibrahim S </strong>
+		</dt>
+		<dd class="entry">
+			<p>Hi, How to add assertions by using groovy</p>
+ 
+					</dd>
+		
+			
+		<dt id="comment-291726">
+			<span class="comment_num"><a href="#comment-291726" title="Permalink to this comment">#14</a></span>
+			<strong>ren </strong>
+		</dt>
+		<dd class="entry">
+			<p>Peraveen Kumar u missed a “;’  </p>
+<p>c=a+b;</p>
+ 
+					</dd>
+		
+		
+	</dl>
+		
+	
+	<!-- Comment Form -->
+		
+		
+			<h3 id="respond">Leave a Comment</h3>
+			<form action="http://www.softwaretestinghelp.com/wp-comments-post.php" method="post" id="comment_form">
+			
+										<p><input class="text_input" name="author" id="author" tabindex="1" type="text"><label for="author"><strong>Name</strong></label></p>
+				<p><input class="text_input" name="email" id="email" tabindex="2" type="text"><label for="email"><strong>Mail</strong></label></p>
+				<p><input class="text_input" name="url" id="url" tabindex="3" type="text"><label for="url"><strong>Website (Optional)</strong></label></p>
+							<!--<p><small><strong>XHTML:</strong> You can use these tags: &lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </small></p>-->
+			
+				<p><textarea class="text_input text_area" name="comment" id="comment" rows="7" tabindex="4"></textarea></p>
+			
+							
+				<p>
+					<input name="submit" class="form_submit" id="submit" tabindex="5" value="Submit" type="submit">
+					<input name="comment_post_ID" value="5884" type="hidden">
+				</p>
+		
+
+				<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="34a48b553e" type="hidden"></p><p style="display: none;"></p>	
+			</form>
+		
+</div> <!-- Close #comments container -->
+	
+
+				
+		</div>
+		
+		<div id="sidebar">
+	
+<ul class="sidebar_list">
+
+<li id="nav_menu-3" class="widget widget_nav_menu"><h2>Useful Links!</h2><div class="menu-start-here-container"><ul id="menu-start-here" class="menu"><li id="menu-item-654" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-654"><a title="Software Testing Home" href="http://www.softwaretestinghelp.com/">Home</a></li>
+<li id="menu-item-1747" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1747"><a title="Get our free ebooks and latest tutorial updates via email" href="http://www.softwaretestinghelp.com/subscribe/">Subscribe for FREE Updates</a></li>
+<li id="menu-item-1548" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1548"><a title="Testing RESOURCES" href="http://www.softwaretestinghelp.com/resources/">Testing RESOURCES</a></li>
+<li id="menu-item-1552" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1552"><a title="QA Testing TRAINING" href="http://www.softwaretestinghelp.org/?utm_campaign=sthmenu">QA Testing TRAINING</a></li>
+<li id="menu-item-1554" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1554"><a title="Write and Earn Program for Freelance QA Testers" href="http://www.softwaretestinghelp.com/opportunity-freelance-qa-testers/">Write and Earn Program</a></li>
+<li id="menu-item-1070" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1070"><a title="FREE eBooks" href="http://www.softwaretestinghelp.com/practical-software-testing-new-free-ebook-download/">FREE eBooks</a></li>
+<li id="menu-item-2486" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2486"><a href="http://www.softwaretestinghelp.com/software-testing-tutorials/">ALL Tutorials</a></li>
+<li id="menu-item-11413" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11413"><a href="https://goo.gl/forms/wWXWf69PbmTDrrKO2">Suggest New Tutorials</a></li>
+<li id="menu-item-1550" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1550"><a href="http://www.softwaretestinghelp.com/contact/">Contact Us</a></li>
+</ul></div></li><li id="nav_menu-4" class="widget widget_nav_menu"><h2>Help &amp; Tutorials</h2><div class="menu-menu2-container"><ul id="menu-menu2" class="menu"><li id="menu-item-2494" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2494"><a href="http://www.softwaretestinghelp.com/istqb-free-updates/">ISTQB Study Guide</a></li>
+<li id="menu-item-3720" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3720"><a href="http://www.softwaretestinghelp.org/istqb-certification-complete-study-package/">ISTQB Premium Study Guide</a></li>
+<li id="menu-item-3405" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3405"><a href="http://www.softwaretestinghelp.com/free-online-software-testing-qa-training-course/">Free QA Training</a></li>
+<li id="menu-item-5066" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5066"><a title="Selenium Online Training" href="http://www.softwaretestinghelp.com/selenium-tutorial-1/">Free Selenium Training</a></li>
+<li id="menu-item-2495" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2495"><a href="http://www.softwaretestinghelp.com/qtp-quicktest-professional-tutorial-1/">Free QTP Training</a></li>
+<li id="menu-item-2496" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2496"><a href="http://www.softwaretestinghelp.com/learn-hp-quality-center-qc-in-4-days/">Free QC Training</a></li>
+<li id="menu-item-3171" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3171"><a href="http://www.softwaretestinghelp.com/hp-loadrunner-load-testing-tool-training-tutorials/">HP LoadRunner Tutorials</a></li>
+<li id="menu-item-3406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3406"><a href="http://www.softwaretestinghelp.com/atlassian-jira-tutorial-1/">JIRA Tutorials</a></li>
+<li id="menu-item-2497" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2497"><a href="http://www.softwaretestinghelp.com/software-testing-interview-questions/">101+ Interview Questions</a></li>
+</ul></div></li><li id="text-44" class="widget widget_text"><h2>Follow us!</h2>			<div class="textwidget"><div class="essbfc-container essbfc-col-2 essbfc-template-tinycolor"><ul><li class="essbfc-facebook"><a href="https://www.facebook.com/SoftwareTestingHelp" target="_blank" rel="nofollow"><div class="essbfc-network"><i class="essbfc-icon essbfc-icon-facebook"></i><span class="essbfc-followers-count">62k</span><span class="essbfc-followers-text">Fans</span></div></a></li><li class="essbfc-twitter"><a href="https://www.twitter.com/vijayshinde" target="_blank" rel="nofollow"><div class="essbfc-network"><i class="essbfc-icon essbfc-icon-twitter"></i><span class="essbfc-followers-count">4k</span><span class="essbfc-followers-text">Followers</span></div></a></li><li class="essbfc-google"><a href="https://plus.google.com/111004776156228358214" target="_blank" rel="nofollow"><div class="essbfc-network"><i class="essbfc-icon essbfc-icon-google"></i><span class="essbfc-followers-count">8k</span><span class="essbfc-followers-text">Followers</span></div></a></li><li class="essbfc-linkedin"><a href="https://www.linkedin.com/in/shindevijaykr/" target="_blank" rel="nofollow"><div class="essbfc-network"><i class="essbfc-icon essbfc-icon-linkedin"></i><span class="essbfc-followers-count">4k</span><span class="essbfc-followers-text">Followers</span></div></a></li><li class="essbfc-youtube"><a href="https://www.youtube.com/user/shindevijaykr" target="_blank" rel="nofollow"><div class="essbfc-network"><i class="essbfc-icon essbfc-icon-youtube"></i><span class="essbfc-followers-count">10k</span><span class="essbfc-followers-text">Subscribers</span></div></a></li><li class="essbfc-rss"><a href="http://feeds.feedburner.com/Softwaretestinghelp" target="_blank" rel="nofollow"><div class="essbfc-network"><i class="essbfc-icon essbfc-icon-rss"></i><span class="essbfc-followers-count">54k</span><span class="essbfc-followers-text">Subscribers</span></div></a></li><li class="essbfc-wp_comments"><div class="essbfc-network"><i class="essbfc-icon essbfc-icon-wp_comments"></i><span class="essbfc-followers-count">37.4k</span><span class="essbfc-followers-text">Comments</span></div></li><li class="essbfc-total"><div class="essbfc-network"><i class="essbfc-icon  essbfc-icon-total"></i><span class="essbfc-followers-count">179k</span><span class="essbfc-followers-text">Total fans</span></div></li></ul></div></div>
+		</li><li id="text-36" class="widget widget_text"><h2>Adv</h2>			<div class="textwidget"><div class="g g-1"><div class="g-col b-1 a-15"><a class="gofollow" data-track="MTUsMSwxLDYw" rel="nofollow" href="http://www.testuff.com/sth/" target="_blank"><img src="Basic-Groovy-Script_files/banner.png" alt="Testuff"></a></div></div><div class="g g-1"><div class="g-col b-1 a-9"><a class="gofollow" data-track="OSwxLDEsNjA=" rel="nofollow" href="https://www.testlodge.com/?utm_source=STH&amp;utm_medium=banner&amp;utm_campaign=STH_banner" target="_blank">
+<img src="Basic-Groovy-Script_files/TestLodge.jpg" alt="TestLodge"></a></div></div><div class="g g-1"><div class="g-col b-1 a-6"><a class="gofollow" data-track="NiwxLDEsNjA=" rel="nofollow" href="http://www.radview.com/webload-download/?utm_campaign=free-edition&amp;utm_medium=banner&amp;utm_source=softwaretestinghelp" target="_blank">
+<img src="Basic-Groovy-Script_files/webload-free-edition.jpg" alt="Radview"></a></div></div><div class="g g-1"><div class="g-col b-1 a-12"><a class="gofollow" data-track="MTIsMSwxLDYw" rel="nofollow" href="http://www.plutora.com/products/stryka-test-management-software?utm_source=softwaretestinghelp&amp;utm_medium=banner180x150&amp;utm_campaign=annually" target="_blank">
+<img src="Basic-Groovy-Script_files/STH-Banner-180x150-B.jpg" alt="Stryka"></a>
+</div></div>
+<!-- BuySellAds Zone Code -->
+<div id="bsap_1279353" class="bsap bsap_1279353" data-serve="CESIEKY">
+<style type="text/css">
+div.bsap_1279353{width:180px;display:block;}div.bsap_1279353 
+a{width:180px;}div.bsap_1279353 a img{padding:0;}div.bsap_1279353 a 
+em{font-style:normal;}div.bsap_1279353 
+a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0;text-align:center;text-decoration:none;overflow:hidden;}
+div.bsap_1279353
+ img{border:0;clear:right;}
+div.bsap_1279353 
+a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid 
+#ccc;background:#e7e7e7;text-align:center;}
+div.bsap_1279353 a.adhere:hover{border:1px solid 
+#999;background:#ddd;color:#333;}div.bsap_1279353 
+a{line-height:100%;}div.bsap_1279353 
+a.adhere{width:180px;height:150px;line-height:1200%;}html>body 
+div.bsap_1279353 a.adhere{width:178px;height:148px;}div.bsap_1279353 
+img.s{height:0;width:0;}div.bsap_1279353{line-height:9px;}div.bsap_1279353
+ .bsap_adhere a{height:19px !important;width:178px 
+!important;font-size:10px;background:#f1f1f1;border:1px solid 
+#e1e1e1;border-top:none;border-radius: 0 0 2px 
+2px;line-height:16px;}.bsap_backfillframe{border:0;}
+</style>
+<!-- no ad --><!-- no ad -->
+<script type="text/javascript" id="auto_1" class="ignoreme"> if (typeof(BSACallback) !== 'undefined') BSACallback(); </script></div>
+<!-- End BuySellAds Zone Code -->
+<!-- BuySellAds Zone Code -->
+<div id="bsap_1305125" class="bsap bsap_1305125" data-serve="CVAD42QL">
+<style type="text/css">
+div.bsap_1305125{width:100%;display:block;}div.bsap_1305125 
+a{width:160px;}div.bsap_1305125 a img{padding:0;}div.bsap_1305125 a 
+em{font-style:normal;}div.bsap_1305125 
+a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0;text-align:center;text-decoration:none;overflow:hidden;float:left;}
+div.bsap_1305125
+ img{border:0;clear:right;}
+div.bsap_1305125 
+a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid 
+#ccc;background:#e7e7e7;text-align:center;}
+div.bsap_1305125 a.adhere:hover{border:1px solid 
+#999;background:#ddd;color:#333;}
+div.bsap_1305125 
+iframe{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0;text-align:center;text-decoration:none;overflow:hidden;float:left;}div.bsap_1305125
+ a{line-height:100%;}div.bsap_1305125 
+a.adhere{width:160px;height:600px;line-height:4800%;}html>body 
+div.bsap_1305125 a.adhere{width:158px;height:598px;}div.bsap_1305125 
+img.s{height:0;width:0;}div.bsap_1305125{line-height:9px;}div.bsap_1305125
+ .bsap_adhere a{height:19px !important;width:158px 
+!important;font-size:10px;background:#f1f1f1;border:1px solid 
+#e1e1e1;border-top:none;border-radius: 0 0 2px 
+2px;line-height:16px;}.bsap_backfillframe{border:0;}
+</style>
+<!-- no ad -->
+<script type="text/javascript" id="auto_2" class="ignoreme"> if (typeof(BSACallback) !== 'undefined') BSACallback(); </script></div>
+<!-- End BuySellAds Zone Code -->
+</div>
+		</li>	</ul>
+</div>			
+	</div>
+
+	<div id="left">
+	<ul class="sidebar_list q2w3-fixed-widget-container" style="height: 0px;">
+		<li id="text-34" class="widget widget_text">			<div class="textwidget"><div class="AW-Form-963770321"><div><style type="text/css">#af-form-963770321
+ .af-body 
+.af-textWrap{width:98%;display:block;float:none;}#af-form-963770321 
+.af-body 
+a{color:#FFFFFF;text-decoration:underline;font-style:normal;font-weight:normal;}#af-form-963770321
+ .af-body input.text, #af-form-963770321 .af-body 
+textarea{background-color:#FFFFFF;border-color:#FFFFFF;border-width:5px;border-style:solid;color:#000000;text-decoration:none;font-style:normal;font-weight:normal;font-size:16px;font-family:Helvetica,
+ sans-serif;}#af-form-963770321 .af-body input.text:focus, 
+#af-form-963770321 .af-body 
+textarea:focus{background-color:#FFFAD6;border-color:#030303;border-width:1px;border-style:solid;}#af-form-963770321
+ .af-body 
+label.previewLabel{display:block;float:none;text-align:left;width:auto;color:#9C9C9C;text-decoration:none;font-style:normal;font-weight:normal;font-size:16px;font-family:Helvetica,
+ sans-serif;}#af-form-963770321 
+.af-body{padding-bottom:1px;padding-top:1px;background-repeat:repeat-x;background-position:inherit;background-image:none;color:#FFFFFF;font-size:11px;font-family:Verdana,
+ sans-serif;}#af-form-963770321 
+.af-footer{padding-bottom:1px;padding-top:1px;padding-right:9px;padding-left:9px;background-color:#333333;background-repeat:no-repeat;background-position:top
+ 
+left;background-image:none;border-width:1px;border-bottom-style:none;border-left-style:none;border-right-style:none;border-top-style:none;color:#FFFFFF;font-size:12px;font-family:Verdana,
+ sans-serif;}#af-form-963770321 
+.af-header{padding-bottom:3px;padding-top:3px;padding-right:5px;padding-left:5px;background-color:#333333;background-repeat:no-repeat;background-position:center;background-image:none;border-width:1px;border-bottom-style:none;border-left-style:none;border-right-style:none;border-top-style:none;color:#CCCCCC;font-size:16px;font-family:Verdana,
+ sans-serif;}#af-form-963770321 .af-quirksMode 
+.bodyText{padding-top:2px;padding-bottom:2px;}#af-form-963770321 
+.af-quirksMode{padding-right:15px;padding-left:15px;}#af-form-963770321 
+.af-standards 
+.af-element{padding-right:15px;padding-left:15px;}#af-form-963770321 
+.bodyText p{margin:1em 0;}#af-form-963770321 .buttonContainer 
+input.submit{background-image:url("https://forms.aweber.com/images/auto/gradient/button/a00.png");background-position:top
+ left;background-repeat:repeat-x;background-color:#8a0000;border:1px 
+solid 
+#8a0000;color:#FFFFFF;text-decoration:none;font-style:normal;font-weight:normal;font-size:16px;font-family:Helvetica,
+ sans-serif;}#af-form-963770321 .buttonContainer 
+input.submit{width:auto;}#af-form-963770321 
+.buttonContainer{text-align:center;}#af-form-963770321 
+body,#af-form-963770321 dl,#af-form-963770321 dt,#af-form-963770321 
+dd,#af-form-963770321 h1,#af-form-963770321 h2,#af-form-963770321 
+h3,#af-form-963770321 h4,#af-form-963770321 h5,#af-form-963770321 
+h6,#af-form-963770321 pre,#af-form-963770321 code,#af-form-963770321 
+fieldset,#af-form-963770321 legend,#af-form-963770321 
+blockquote,#af-form-963770321 th,#af-form-963770321 
+td{float:none;color:inherit;position:static;margin:0;padding:0;}#af-form-963770321
+ button,#af-form-963770321 input,#af-form-963770321 
+submit,#af-form-963770321 textarea,#af-form-963770321 
+select,#af-form-963770321 label,#af-form-963770321 
+optgroup,#af-form-963770321 
+option{float:none;position:static;margin:0;}#af-form-963770321 
+div{margin:0;}#af-form-963770321 fieldset{border:0;}#af-form-963770321 
+form,#af-form-963770321 
+textarea,.af-form-wrapper,.af-form-close-button,#af-form-963770321 
+img{float:none;color:inherit;position:static;background-color:none;border:none;margin:0;padding:0;}#af-form-963770321
+ input,#af-form-963770321 button,#af-form-963770321 
+textarea,#af-form-963770321 select{font-size:100%;}#af-form-963770321 
+p{color:inherit;}#af-form-963770321 select,#af-form-963770321 
+label,#af-form-963770321 optgroup,#af-form-963770321 
+option{padding:0;}#af-form-963770321 
+table{border-collapse:collapse;border-spacing:0;}#af-form-963770321 
+ul,#af-form-963770321 
+ol{list-style-image:none;list-style-position:outside;list-style-type:disc;padding-left:40px;}#af-form-963770321,#af-form-963770321
+ 
+.quirksMode{width:100%;max-width:195px;}#af-form-963770321.af-quirksMode{overflow-x:hidden;}#af-form-963770321{background-color:#333333;border-color:#A90000;border-width:1px;border-style:solid;}#af-form-963770321{display:block;}#af-form-963770321{overflow:hidden;}.af-body
+ .af-textWrap{text-align:left;}.af-body 
+input.image{border:none!important;}.af-body input.submit,.af-body 
+input.image,.af-form .af-element 
+input.button{float:none!important;}.af-body 
+input.text{width:100%;float:none;padding:2px!important;}.af-body.af-standards
+ input.submit{padding:4px 12px;}.af-clear{clear:both;}.af-element 
+label{text-align:left;display:block;float:left;}.af-element{padding-bottom:5px;padding-top:5px;}.af-form-wrapper{text-indent:0;}.af-form{text-align:left;margin:auto;}.af-header,.af-footer{margin-bottom:0;margin-top:0;padding:10px;}.af-quirksMode
+ 
+.af-element{padding-left:0!important;padding-right:0!important;}.lbl-right
+ .af-element label{text-align:right;}body {}</style><form method="post" class="af-form-wrapper" accept-charset="UTF-8" action="https://www.aweber.com/scripts/addlead.pl"><div style="display: none;"><input name="meta_web_form_id" value="963770321" type="hidden"><input name="meta_split_id" value="" type="hidden"><input name="listname" value="sth-updates" type="hidden"><input name="redirect" value="http://www.softwaretestinghelp.com/important-please-activate-your-subscription/" id="redirect_7fb279f2a8d3b7324804b8ed7e8a8cf0" type="hidden"><input name="meta_redirect_onlist" value="http://www.softwaretestinghelp.com/sth-updates/" type="hidden"><input name="meta_adtracking" value="STH_bonus_sidebar" type="hidden"><input name="meta_message" value="1" type="hidden"><input name="meta_required" value="email" type="hidden"><input name="meta_tooltip" value="" type="hidden"></div><div id="af-form-963770321" class="af-form"><div id="af-header-963770321" class="af-header"><div class="bodyText"><p style="text-align: center;"><span style="font-size: 16px;"><strong><span style="color: #ffff00; font-family: helvetica;">Download FREE "Practical Software Testing" eBook Now!</span></strong></span></p></div></div><div id="af-body-963770321" class="af-body af-standards"><div class="af-element"><label class="previewLabel" for="awf_field-89917115">Enter email: </label><div class="af-textWrap"><input class="text" id="awf_field-89917115" name="email" tabindex="500" onfocus=" if (this.value == '') { this.value = ''; }" onblur="if (this.value == '') { this.value='';} " type="text"></div><div class="af-clear"></div></div><div class="af-element buttonContainer"><input name="submit" class="submit" value="Get This eBook" tabindex="501" type="submit"><div class="af-clear"></div></div></div><div id="af-footer-963770321" class="af-footer"><div class="bodyText"><p style="text-align: center;"><em>&nbsp;<span id="tmp2-sidebar-secure-footer-txt"><span style="color: gray;">I will never spam you!</span></span></em></p></div></div></div></form><script type="text/javascript">//
+ Special handling for facebook iOS since it cannot open new 
+windows(function() {    if (navigator.userAgent.indexOf('FBIOS') !== -1 
+|| navigator.userAgent.indexOf('Twitter for iPhone') !== -1) {        
+document.getElementById('af-form-963770321').parentElement.removeAttribute('target');
+    }})();</script><script type="text/javascript">    <!--    
+(function() {        var IE = /*@cc_on!@*/false;        if (!IE) { 
+return; }        if (document.compatMode && document.compatMode == 
+'BackCompat') {            if 
+(document.getElementById("af-form-963770321")) {                
+document.getElementById("af-form-963770321").className = 'af-form 
+af-quirksMode';            }            if 
+(document.getElementById("af-body-963770321")) {                
+document.getElementById("af-body-963770321").className = "af-body inline
+ af-quirksMode";            }            if 
+(document.getElementById("af-header-963770321")) {                
+document.getElementById("af-header-963770321").className = "af-header 
+af-quirksMode";            }            if 
+(document.getElementById("af-footer-963770321")) {                
+document.getElementById("af-footer-963770321").className = "af-footer 
+af-quirksMode";            }        }    })();    --></script></div></div>
+<script type="text/javascript">(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//forms.aweber.com/form/21/963770321.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, "script", "aweber-wjs-w4dghqszr"));
+</script></div>
+		</li><li id="widget_crp-2" class="widget widget_widget_crp"><h2>Related Posts</h2><div class="crp_related_widget"><ul><li><a href="http://www.softwaretestinghelp.com/soapui-tutorial-7-properties-in-soapui-groovy-script/"><span class="crp_title">How to Use Properties in SoapUI Groovy Script – SoapUI Tutorial #7</span></a></li><li><a href="http://www.softwaretestinghelp.com/soapui-tutorial-15-store-request-and-response-in-file/"><span class="crp_title">A Quick SoapUI Guide to Store Request and Response Data in a File – SoapUI Tutorial #15</span></a></li><li><a href="http://www.softwaretestinghelp.com/soapui-tutorial-11-exception-handling-in-soapui-groovy-scripts/"><span class="crp_title">How to Handle Exception in SoapUI Groovy Scripts – SoapUI Tutorial #11</span></a></li><li><a href="http://www.softwaretestinghelp.com/soapui-tutorial-9-groovy-scripting-concepts/"><span class="crp_title">Learn Advanced SoapUI Groovy Scripting Concepts – SoapUI Tutorial #9</span></a></li><li><a href="http://www.softwaretestinghelp.com/soapui-tutorial-10-use-methods-in-soapui-for-bulk-test-execution/"><span class="crp_title">How to Use Methods in SoapUI for Bulk Test Execution – SoapUI Tutorial #10</span></a></li><li><a href="http://www.softwaretestinghelp.com/soapui-tutorial-8-working-with-soapui-properties/"><span class="crp_title">Working with SoapUI Properties – SoapUI Tutorial #8</span></a></li><li><a href="http://www.softwaretestinghelp.com/soapui-tutorial-12-soapui-pro-features/"><span class="crp_title">4 Important Features of SoapUI Pro for Pro Audience – SoapUI Tutorial #12</span></a></li><li><a href="http://www.softwaretestinghelp.com/soapui-tutorial-13-soap-vs-rest-services/"><span class="crp_title">SOAP vs REST Services – Learn How to Create REST Project in SoapUI Pro – SoapUI Tutorial #13</span></a></li></ul><div class="crp_clear"></div></div></li><li id="text-43" class="widget widget_text">			<div class="textwidget"><script async="" src="Basic-Groovy-Script_files/adsbygoogle.js"></script>
+<!-- STH link unit sidebar -->
+<ins class="adsbygoogle" style="display: block; height: 130px;" data-ad-client="ca-pub-4494420772031453" data-ad-slot="5551795193" data-ad-format="link" data-adsbygoogle-status="done"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:130px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent"><ins id="aswift_3_anchor" style="display:block;border:none;height:130px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;width:200px;height:130px;" frameborder="0" height="130" width="200"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+		</li><li id="text-27" class="widget widget_text"><h2>Online Training by STH</h2>			<div class="textwidget"><a href="http://www.softwaretestinghelp.org/" target="_blank">
+<img src="Basic-Groovy-Script_files/sth-testing-courses.gif" alt="Software Testing Online Training Course" height="140" width="180"></a>
+<br><br>
+<a href="http://www.softwaretestinghelp.com/sth-current-job-openings/"><img src="Basic-Groovy-Script_files/We-are-Hiring.jpg" style="border:0" alt="Software Testing freelancing work" height="150" width="180"></a>
+</div>
+		</li><!-- fixed widget --><li id="text-28" class="widget widget_text" style="">			<div class="textwidget"><!-- /1018030/RON_Desktop_160x600_ATF -->
+<div id="div-gpt-ad-1494346285367-2" data-google-query-id="CIXE68apitQCFR3MjgodUJMHGw">
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1494346285367-2'); });
+</script>
+<div id="google_ads_iframe_/1018030/RON_Desktop_160x600_ATF_0__container__" style="border: 0pt none; display: inline-block; width: 160px; height: 600px;"><iframe style="border: 0px none; vertical-align: bottom;" src="Basic-Groovy-Script_files/container_003.html" id="google_ads_iframe_/1018030/RON_Desktop_160x600_ATF_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" data-is-safeframe="true" frameborder="0" height="600" width="160"></iframe></div></div></div>
+		</li>
+ </ul>	
+</div></div>
+
+<div id="footer">
+<div align="center">
+<p>
+</p><form action="http://www.google.com" id="cse-search-box" target="_blank">
+  <div>
+    <input name="cx" value="partner-pub-4494420772031453:2717605672" type="hidden">
+    <input name="ie" value="UTF-8" type="hidden">
+    <input name="q" size="30" type="text">
+    <input name="sa" value="Search" type="submit">
+  </div>
+</form>
+<p></p>
+<br>
+
+<p><a href="http://www.softwaretestinghelp.com/about/">About us</a> | <a href="http://www.softwaretestinghelp.com/sitemap/">Articles</a> | <a href="http://www.softwaretestinghelp.com/contact/">Contact us</a> | <a href="http://www.softwaretestinghelp.com/software-testing-directory/">Directory</a> | <a href="http://www.softwaretestinghelp.com/software-testing-help-affiliate-program/">Affiliates</a> | <a href="http://www.softwaretestinghelp.com/advertise-on-software-testing-help/">Advertise</a> | <a href="http://www.softwaretestinghelp.com/best-qa-software-testing-service-provider-company/">Testing Services</a> <br><br> 
+<strong>All articles are copyrighted and can not be reproduced without permission.</strong><br><br>
+</p>
+</div>
+<p><a href="http://www.softwaretestinghelp.com/copyright-policy/" target="_blank"><img src="Basic-Groovy-Script_files/copyright-sth.jpg" style="border:0" alt="ALL RIGHTS RESERVED. DO NOT COPY" height="17" width="178"></a> © 2006 - 2017 Software Testing Help — Read our <a href="http://www.softwaretestinghelp.com/copyright-policy/"> Copyright Policy</a> | <a href="http://www.softwaretestinghelp.com/privacy/">Privacy Policy</a> | <a href="http://www.softwaretestinghelp.com/link-to-us/">Link to Us</a></p><br><br>
+	<!-- Powered by WPtouch Pro: 4.3.13 --><script type="text/javascript" src="Basic-Groovy-Script_files/form.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var click_object = {"ajax_url":"http:\/\/www.softwaretestinghelp.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Basic-Groovy-Script_files/jquery.js"></script>
+<script type="text/javascript" src="Basic-Groovy-Script_files/jquery_003.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"cached":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Basic-Groovy-Script_files/scripts.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var tocplus = {"visibility_show":"show","visibility_hide":"hide","visibility_hide_by_default":"1","width":"Auto"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Basic-Groovy-Script_files/front.js"></script>
+<script type="text/javascript">
+var q2w3_sidebar_options = new Array();
+q2w3_sidebar_options[0] = { "sidebar" : "sidebar-1", "margin_top" : 40, 
+"margin_bottom" : 200, "stop_id" : "", "screen_max_width" : 0, 
+"screen_max_height" : 0, "width_inherit" : false, "refresh_interval" : 
+0, "window_load_hook" : false, "disable_mo_api" : false, "widgets" : 
+['text-28'] };
+</script>
+<script type="text/javascript" src="Basic-Groovy-Script_files/q2w3-fixed-widget.js"></script>
+<script type="text/javascript" src="Basic-Groovy-Script_files/wp-embed.js"></script>
+<link rel="stylesheet" id="essb-cct-style" href="Basic-Groovy-Script_files/styles_002.css" type="text/css" media="all"><script type="text/javascript">var
+ essb_window = function(oUrl, oService, oInstance) { var element = 
+jQuery('.essb_'+oInstance); var instance_post_id = 
+jQuery(element).attr("data-essb-postid") || ""; var instance_position = 
+jQuery(element).attr("data-essb-position") || ""; var wnd; var w = 800 ;
+ var h = 500; if (oService == "twitter") { w = 500; h= 300; } var left =
+ (screen.width/2)-(w/2); var top = (screen.height/2)-(h/2); if (oService
+ == "twitter") { wnd = window.open( oUrl, "essb_share_window", 
+"height=300,width=500,resizable=1,scrollbars=yes,top="+top+",left="+left
+ ); } else { wnd = window.open( oUrl, "essb_share_window", 
+"height=500,width=800,resizable=1,scrollbars=yes,top="+top+",left="+left
+ ); } if (typeof(essb_settings) != "undefined") { if 
+(essb_settings.essb3_stats) { if (typeof(essb_handle_stats) != 
+"undefined") { essb_handle_stats(oService, instance_post_id, oInstance);
+ } } if (essb_settings.essb3_ga) { essb_ga_tracking(oService, oUrl, 
+instance_position); } } essb_self_postcount(oService, instance_post_id);
+ if (typeof(essb_abtesting_logger) != "undefined") { 
+essb_abtesting_logger(oService, instance_post_id, oInstance); } var 
+pollTimer = window.setInterval(function() { if (wnd.closed !== false) { 
+window.clearInterval(pollTimer); essb_smart_onclose_events(oService, 
+instance_post_id); } }, 200); }; var essb_self_postcount = 
+function(oService, oCountID) { if (typeof(essb_settings) != "undefined")
+ { oCountID = String(oCountID); jQuery.post(essb_settings.ajax_url, { 
+'action': 'essb_self_postcount', 'post_id': oCountID, 'service': 
+oService, 'nonce': essb_settings.essb3_nonce }, function (data) { if 
+(data) { }},'json'); } }; var essb_smart_onclose_events = 
+function(oService, oPostID) { if (oService == "subscribe" || oService ==
+ "comments") return; if (typeof (essbasc_popup_show) == 'function') { 
+essbasc_popup_show(); } if (typeof essb_acs_code == 'function') { 
+essb_acs_code(oService, oPostID); } if (typeof(after_share_easyoptin) !=
+ "undefined") { essb_toggle_subscribe(after_share_easyoptin); } }; var 
+essb_tracking_only = function(oUrl, oService, oInstance, oAfterShare) { 
+var element = jQuery('.essb_'+oInstance); if (oUrl == "") { oUrl = 
+document.URL; } var instance_post_id = 
+jQuery(element).attr("data-essb-postid") || ""; var instance_position = 
+jQuery(element).attr("data-essb-position") || ""; if 
+(typeof(essb_settings) != "undefined") { if (essb_settings.essb3_stats) {
+ if (typeof(essb_handle_stats) != "undefined") { 
+essb_handle_stats(oService, instance_post_id, oInstance); } } if 
+(essb_settings.essb3_ga) { essb_ga_tracking(oService, oUrl, 
+instance_position); } } essb_self_postcount(oService, instance_post_id);
+ if (oAfterShare) { essb_smart_onclose_events(oService, 
+instance_post_id); } }; var essb_pinterest_picker = function(oInstance) {
+ essb_tracking_only('', 'pinterest', oInstance); var 
+e=document.createElement('script'); 
+e.setAttribute('type','text/javascript'); 
+e.setAttribute('charset','UTF-8'); 
+e.setAttribute('src','//assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e);
+ };</script><!-- This site converts visitors into subscribers and customers with the OptinMonster WordPress plugin v2.1.7 - http://optinmonster.com/ -->
+
+<script type="text/javascript">var onrzvc5xpe_lightbox, omo = 
+{"id":4445,"optin":"onrzvc5xpe-lightbox","campaign":"STH 
+Sitewide","clones":[""],"hash":"onrzvc5xpe-lightbox","optin_js":"onrzvc5xpe_lightbox","type":"lightbox","theme":"coupon","cookie":3,"delay":6000,"second":0,"exit":false,"redirect":"http:\/\/www.softwaretestinghelp.com\/important-please-activate-your-subscription\/","redirect_pass":false,"custom":false,"test":false,"global_cookie":30,"preview":false,"ajax":"http:\/\/www.softwaretestinghelp.com\/?optin-monster-ajax-route=1","mobile":false,"post_id":5884,"preloader":"http:\/\/www.softwaretestinghelp.com\/wp-content\/plugins\/optin-monster\/assets\/css\/images\/preloader.gif","error":"There
+ was an error with your submission. Please try 
+again.","ajax_error":"There was an error with the AJAX request: 
+","name_error":"Please enter a valid name.","email_error":"Please enter a
+ valid email address.","bot_error":"Honeypot fields have been activated.
+ Your submission is being flagged as potential spam.","success":"Thanks 
+for subscribing! Please check your email for further instructions."}; 
+onrzvc5xpe_lightbox = new OptinMonster(); onrzvc5xpe_lightbox.init(omo);</script>
+<!--[if lte IE 9]><script type="text/javascript">var om_ie_browser = true;</script><![endif]--><!-- / OptinMonster WordPress plugin. -->
+</div>
+
+<script>
+var adArray = [];
+adArray.push( '<a 
+href="http://www.softwaretestinghelp.org/?utm_source=sth&utm_medium=banner&utm_campaign=adblck"
+ target="_blank" rel="nofollow"><img 
+src="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2016/06/The-Best-Online-Software-Testing-Training.jpg"
+ alt="best software testing training course" width="300" height="250" 
+/></a>' );
+adArray.push( '<a 
+href="http://www.softwaretestinghelp.org/?utm_source=sth&utm_medium=banner&utm_campaign=adblck"
+ target="_blank" rel="nofollow"><img 
+src="http://cdn.softwaretestinghelp.com/wp-content/qa/uploads/2016/06/QA-courses.jpg"
+ alt="best QA testing courses" width="300" height="250" /></a>' );
+adArray.push( '<a 
+href="http://www.softwaretestinghelp.org/?utm_source=sth&utm_medium=banner&utm_campaign=adblck"
+ target="_blank" rel="nofollow"><img 
+src="http://cdn2.softwaretestinghelp.com/wp-content/qa/uploads/2016/06/QA-testing-course-demo.jpg"
+ alt="QA testing online training demo" width="300" height="250" /></a>' 
+);
+
+jQuery(function ($) {
+	if ($(".ad-adblk").height() === 0) {
+		$(".ad-adblk").html(adArray[Math.floor(adArray.length * 
+Math.random())]);
+	}
+});
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1357330-5', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+
+<div id="om-onrzvc5xpe-lightbox" class="optin-monster-overlay" style="position: fixed; z-index: 7371832; top: 0px; left: 0px; width: 100%; height: 100%; margin: 0px; padding: 0px; display: none;"><script type="text/javascript" src="Basic-Groovy-Script_files/webfont.js"></script><style type="text/css" class="om-theme-coupon-styles">.optin-monster-success-message
+ {font-size: 21px;font-family: "HelveticaNeue-Light", "Helvetica Neue 
+Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", 
+sans-serif;color: #282828;font-weight: 300;text-align: center;margin: 0 
+auto;}.optin-monster-success-overlay .om-success-close {font-size: 32px 
+!important;font-family: "HelveticaNeue-Light", "Helvetica Neue Light", 
+"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif 
+!important;color: #282828 !important;font-weight: 300 
+!important;position: absolute !important;top: 0px !important;right: 10px
+ !important;background: none !important;text-decoration: none 
+!important;width: auto !important;height: auto !important;display: block
+ !important;line-height: 32px !important;padding: 0 
+!important;}.om-helper-field {display: none !important;visibility: 
+hidden !important;opacity: 0 !important;height: 0 
+!important;line-height: 0 !important;}html div#om-onrzvc5xpe-lightbox * 
+{box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;}html
+ div#om-onrzvc5xpe-lightbox 
+{background:none;border:0;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;float:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
+ 
+grayscale;height:auto;letter-spacing:normal;outline:none;position:static;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;width:auto;visibility:visible;overflow:visible;margin:0;padding:0;line-height:1;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-shadow:none;-moz-box-shadow:none;-ms-box-shadow:none;-o-box-shadow:none;box-shadow:none;-webkit-appearance:none;}html
+ div#om-onrzvc5xpe-lightbox {background: rgb(0, 0, 0);background: 
+rgba(0, 0, 0, .7);-webkit-font-smoothing: antialiased;line-height: 
+1;width: 100%;height: 100%;}html div#om-onrzvc5xpe-lightbox .om-clearfix
+ {clear: both;}html div#om-onrzvc5xpe-lightbox .om-clearfix:after 
+{clear: both;content: ".";display: block;height: 0;line-height: 
+0;overflow: auto;visibility: hidden;zoom: 1;}html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-optin {background-color: 
+#ffffcc;display: none;position: absolute;top: 50%;left: 50%;min-height: 
+175px;width: 600px;}html div#om-onrzvc5xpe-lightbox 
+#om-lightbox-coupon-optin-wrap {position: relative;height: 100%;padding:
+ 15px;}html div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-container 
+{border: 4px dashed #000;}html div#om-onrzvc5xpe-lightbox .om-close 
+{position: absolute;top: -15px;right: -15px;display: block;font-family: 
+"Verdana", Arial, sans-serif;font-size: 27px;font-weight: bold;color: 
+#333333;color: rgba(0,0,0,0.3);text-decoration: none 
+!important;background-color: #000;color: 
+rgba(255,255,255,0.8);border-radius: 999em;height: 30px;width: 
+30px;text-align: center;}html div#om-onrzvc5xpe-lightbox 
+.om-close:hover,html div#om-onrzvc5xpe-lightbox .om-close:focus,html 
+div#om-onrzvc5xpe-lightbox .om-close:active {background-color: 
+#222;}html div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-header 
+{min-height: 30px;margin: 0 auto;padding: 40px 32px;width: 100%;}html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-optin-title {font-family:
+ "Lato", Arial, sans-serif;font-size: 28px;font-weight: 700;color: 
+#000;width: 100%;text-align: center;}html div#om-onrzvc5xpe-lightbox 
+#om-lightbox-coupon-content {width: 100%;display: block;margin: 0 
+auto;padding: 0 7%;}html div#om-onrzvc5xpe-lightbox 
+#om-lightbox-coupon-content-clear {min-height: 0;}html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-optin-tagline 
+{font-family: "Lato", Arial, sans-serif;font-size: 26px;text-align: 
+center;line-height: 1.25;color: #666;}html div#om-onrzvc5xpe-lightbox 
+#om-lightbox-coupon-footer {padding: 35px 10%;}html 
+div#om-onrzvc5xpe-lightbox label {color: #333;}html 
+div#om-onrzvc5xpe-lightbox input,html div#om-onrzvc5xpe-lightbox 
+#om-lightbox-coupon-optin-name,html div#om-onrzvc5xpe-lightbox 
+#om-lightbox-coupon-optin-email {background-color: #fff;width: 
+100%;border: 1px solid rgba(0,0,0,0.5);-webkit-box-shadow: 
+none;-moz-box-shadow: none;box-shadow: none;border-radius: 0;font-size: 
+18px;line-height: 1.5em;margin: 0 auto 8px;padding: 4px 6px;overflow: 
+hidden;outline: none;vertical-align: middle;display: block;}html 
+div#om-onrzvc5xpe-lightbox input[type=submit],html 
+div#om-onrzvc5xpe-lightbox button,html div#om-onrzvc5xpe-lightbox 
+#om-lightbox-coupon-optin-submit {background: #ee3724;width: 
+100%;border: 1px solid rgba(0,0,0,0.3) !important;color: #fff;font-size:
+ 22px;font-weight: 700;padding: 8px 10px;line-height: 1.5;text-align: 
+center;vertical-align: middle;cursor: pointer;display: block;margin: 0 
+auto;height: auto;opacity: 1;}html div#om-onrzvc5xpe-lightbox 
+input[type=submit]:hover,html div#om-onrzvc5xpe-lightbox 
+input[type=submit]:focus,html div#om-onrzvc5xpe-lightbox 
+input[type=submit]:active,html div#om-onrzvc5xpe-lightbox 
+button:hover,html div#om-onrzvc5xpe-lightbox button:focus,html 
+div#om-onrzvc5xpe-lightbox button:active,html div#om-onrzvc5xpe-lightbox
+ #om-lightbox-coupon-optin-submit:hover,html div#om-onrzvc5xpe-lightbox 
+#om-lightbox-coupon-optin-submit:focus,html div#om-onrzvc5xpe-lightbox 
+#om-lightbox-coupon-optin-submit:active {opacity: 0.8;}@media 
+(max-width: 700px) {html div#om-onrzvc5xpe-lightbox 
+#om-lightbox-coupon-optin[style] {width: 100%;position: relative;}html 
+div#om-onrzvc5xpe-lightbox .om-close {right: 0;}html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-left,html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-right,html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-optin-name,html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-optin-email,html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-optin-submit,html 
+div#om-onrzvc5xpe-lightbox .om-has-email #om-lightbox-coupon-optin-email
+ {float: none;width: 100%;max-width: 100%;}html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-left,html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-optin-name,html 
+div#om-onrzvc5xpe-lightbox #om-lightbox-coupon-optin-email 
+{margin-bottom: 15px;}}</style><div id="om-lightbox-coupon-optin" class="om-lightbox-coupon om-clearfix om-theme-coupon " style="background-color: rgb(255, 255, 255); display: block; top: 99.5px; left: 376px;"><div id="om-lightbox-coupon-optin-wrap" class="om-clearfix" data-om-action="selectable" data-om-target="#optin-monster-field-content_bg"><div id="om-lightbox-coupon-container" class="om-clearfix" style="border-color:#000000" data-om-action="selectable" data-om-target="#optin-monster-field-content_border"><a href="#" class="om-close" title="Close">×</a><div id="om-lightbox-coupon-header" class="om-clearfix"><div id="om-lightbox-coupon-optin-title" data-om-action="editable" data-om-field="title" style="color:#000000;font-family:Lato;font-size:44px;text-align:center;"><div><span style="font-family:bree serif;"><span style="font-size:28px;"><span style="color: rgb(178, 34, 34);">Are You Ready to START &amp; Advance Your Software Testing Career?</span></span></span></div>
+</div></div><div id="om-lightbox-coupon-content" class="om-clearfix"><div id="om-lightbox-coupon-optin-tagline" data-om-action="editable" data-om-field="tagline" style="color:#666666;font-family:Lato;font-size:22px;text-align:center;"><span style="font-family:roboto;"><span style="font-size: 16px;"><span style="color: rgb(0, 0, 0);"><span style="font-size:18px;"><span style="font-weight:bold;">=&gt; Stay ahead of the competition!</span></span><br>
+Download FREE eBooks, Videos and Best Software Testing Articles..</span></span></span></div></div><div id="om-lightbox-coupon-footer" class="om-clearfix om-has-email"><input id="om-lightbox-coupon-optin-email" data-om-action="selectable" data-om-target="#optin-monster-field-email_field" placeholder="Enter your email.." style="color:#0a0909;font-family:Helvetica;" type="email"><input id="om-lightbox-coupon-optin-submit" data-om-action="selectable" data-om-target="#optin-monster-field-submit_field" value="Yes, Send me free eBooks &amp; Updates -&gt;" style="color:#030000;background-color:#faf205;border-color:rgb(225,218,5);font-family:Droid Serif;" type="submit"></div></div></div><input name="email" class="om-helper-field" type="email"><input name="website" class="om-helper-field" type="text"></div><script type="text/javascript">jQuery(document).ready(function($){WebFont.load({google: {families: ['Droid+Serif%7CLato%7CBree+Serif%7CRoboto']}});});</script></div></body></html>
+<!-- Dynamic page generated in 0.626 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2017-05-25 04:23:13 -->
+<!-- Compression = gzip -->
