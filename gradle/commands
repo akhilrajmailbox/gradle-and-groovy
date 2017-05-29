@@ -1,0 +1,115 @@
+
+==================================================================
+default
+==================================================================
+
+defaultTasks 'clean', 'run'
+
+gradle			>> execute clean and run
+gradle clean	>> execute clean only
+gradle run		>> execute run only
+
+
+==================================================================
+creating directory >>
+==================================================================
+
+task create{
+    def dirName = "/var/lib/jenkins/workspace/mf4-installer/t1/t2"
+    mkdir dirName
+}
+
+
+==================================================================
+delete a directory >>
+==================================================================
+
+task mytask{
+    def dirName = "/var/lib/jenkins/workspace/mf4-installer/t1"
+    delete dirName
+}
+
+
+==================================================================
+moving file and directory >>
+==================================================================
+
+task move{
+     file("t1").renameTo(file("t2"))
+}
+
+
+==================================================================
+copy >>
+==================================================================
+
+task mycopy(type: Copy) {
+  from '/var/lib/jenkins/workspace/zipfile/'
+  into '/var/lib/jenkins/workspace/mf4-installer/input/'
+  include '*.war'
+}
+
+
+==================================================================
+zip file creation >>
+==================================================================
+
+task myzip(type: Zip) {
+   from '/var/lib/jenkins/workspace/mf4-installer'
+   exclude 'input'
+   exclude 'compose'
+   archiveName 'test.zip'
+   destinationDir(file('/var/lib/jenkins/workspace/a/'))
+}
+
+
+==================================================================
+tar file creation >>
+==================================================================
+
+task mytar(type: Tar) {
+   from '/var/lib/jenkins/workspace/mf4-installer'
+   exclude 'input'
+   exclude 'compose'
+   archiveName 'test.tar'
+   destinationDir(file('/var/lib/jenkins/workspace/a/'))
+}
+
+
+==================================================================
+jar file creation >>
+==================================================================
+
+task myjar(type: Jar) {
+   from '/var/lib/jenkins/workspace/mf4-installer'
+   exclude 'input'
+   exclude 'compose'
+   archiveName 'test.jar'
+   destinationDir(file('/var/lib/jenkins/workspace/a/'))
+}
+
+
+==================================================================
+copy command and zip creation with depends
+==================================================================
+
+task mycopy(type: Copy) {
+  from '/var/lib/jenkins/workspace/zipfile/'
+  into '/var/lib/jenkins/workspace/mf4-installer/input/'
+  include '*.war'
+}
+
+task myzip(type: Zip) {
+   from '/var/lib/jenkins/workspace/mf4-installer'
+   exclude 'build.gradle-zip'
+   archiveName '$ZIP_FILE_NAME'
+   destinationDir(file('/var/lib/jenkins/workspace/'))
+}
+
+myzip.dependsOn mycopy
+
+==================================================================
+
+
+
+
