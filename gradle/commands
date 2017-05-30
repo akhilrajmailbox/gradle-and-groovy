@@ -1,6 +1,6 @@
 
 ==================================================================
-default
+default >>
 ==================================================================
 
 defaultTasks 'clean', 'run'
@@ -11,12 +11,165 @@ gradle run		>> execute run only
 
 
 ==================================================================
+default paramaetrs >>
+==================================================================
+
+task hello {
+   doLast {
+        println project.buildDir
+        println project.projectDir
+        println project.project
+        println project.name
+        println project.path
+        println project.description
+        println project.group
+        println project.version
+        println project.ant
+        }
+}
+
+=========
+result >>
+=========
+gradle -q hello
+
+/var/lib/jenkins/workspace/mf4-installer/build
+/var/lib/jenkins/workspace/mf4-installer
+root project 'mf4-installer'
+mf4-installer
+:
+null
+
+unspecified
+org.gradle.api.internal.project.DefaultAntBuilder@1c5af804
+
+
+==================================================================
+mustRunAfter or shouldRunAfter
+==================================================================
+
+task tasky {
+   doLast {
+        println 'tasky'
+        }
+}
+
+task taskz {
+    doLast {
+        println 'taskz'
+        }
+}
+
+
+taskz.mustRunAfter taskx
+
+=========
+result >>
+=========
+gradle -q taskx taskz
+
+taskx
+taskz
+
+gradle -q taskz taskx
+
+taskx
+taskz
+
+
+==================================================================
+adding description to a task
+==================================================================
+
+task taskx(overwrite: true) {
+   doLast {
+        description 'this task will replace the above task'
+        println 'taskx-which is new'
+        }
+}
+
+
+==================================================================
+Replacing task
+==================================================================
+
+task taskx {
+   doLast {
+        println 'taskx'
+        }
+}
+
+task taskx(overwrite: true) {
+   doLast {
+        description 'this task will replace the above task'
+        println 'taskx-which is new'
+        }
+}
+
+
+=========
+result >>
+=========
+gradle -q taskx
+
+taskx-which is new
+
+
+==================================================================
+skiping task
+==================================================================
+
+task taska {
+   doLast {
+        println 'taska'
+        }
+}
+
+taska.onlyIf { !project.hasProperty('skip') }
+
+
+=========
+result >>
+=========
+gradle -q taska
+
+taska
+
+gradle -q taska -Pskip
+
+skipped....there is no result
+
+
+==================================================================
+Enabling and disabling tasks
+==================================================================
+
+task taskb {
+   doLast {
+        println 'taskb'
+        }
+}
+
+taskb.enabled = false
+
+
+=========
+result >>
+=========
+gradle -q taskb
+
+skipped....there is no result
+
+
+==================================================================
 creating directory >>
 ==================================================================
 
 task create{
+   doLast {
     def dirName = "/var/lib/jenkins/workspace/mf4-installer/t1/t2"
     mkdir dirName
+	}
 }
 
 
@@ -25,8 +178,10 @@ delete a directory >>
 ==================================================================
 
 task mytask{
+   doLast {
     def dirName = "/var/lib/jenkins/workspace/mf4-installer/t1"
     delete dirName
+	}
 }
 
 
@@ -35,7 +190,9 @@ moving file and directory >>
 ==================================================================
 
 task move{
+   doLast {
      file("t1").renameTo(file("t2"))
+	}
 }
 
 
@@ -44,9 +201,11 @@ copy >>
 ==================================================================
 
 task mycopy(type: Copy) {
+   doLast {
   from '/var/lib/jenkins/workspace/zipfile/'
   into '/var/lib/jenkins/workspace/mf4-installer/input/'
   include '*.war'
+	}
 }
 
 
@@ -55,11 +214,13 @@ zip file creation >>
 ==================================================================
 
 task myzip(type: Zip) {
+   doLast {
    from '/var/lib/jenkins/workspace/mf4-installer'
    exclude 'input'
    exclude 'compose'
    archiveName 'test.zip'
    destinationDir(file('/var/lib/jenkins/workspace/a/'))
+	}
 }
 
 
@@ -68,11 +229,13 @@ tar file creation >>
 ==================================================================
 
 task mytar(type: Tar) {
+   doLast {
    from '/var/lib/jenkins/workspace/mf4-installer'
    exclude 'input'
    exclude 'compose'
    archiveName 'test.tar'
    destinationDir(file('/var/lib/jenkins/workspace/a/'))
+	}
 }
 
 
@@ -81,11 +244,13 @@ jar file creation >>
 ==================================================================
 
 task myjar(type: Jar) {
+   doLast {
    from '/var/lib/jenkins/workspace/mf4-installer'
    exclude 'input'
    exclude 'compose'
    archiveName 'test.jar'
    destinationDir(file('/var/lib/jenkins/workspace/a/'))
+	}
 }
 
 
@@ -94,22 +259,76 @@ copy command and zip creation with depends
 ==================================================================
 
 task mycopy(type: Copy) {
+   doLast {
   from '/var/lib/jenkins/workspace/zipfile/'
   into '/var/lib/jenkins/workspace/mf4-installer/input/'
   include '*.war'
+	}
 }
 
 task myzip(type: Zip) {
+   doLast {
    from '/var/lib/jenkins/workspace/mf4-installer'
    exclude 'build.gradle-zip'
    archiveName '$ZIP_FILE_NAME'
    destinationDir(file('/var/lib/jenkins/workspace/'))
+	}
 }
 
 myzip.dependsOn mycopy
 
+
+==================================================================
+listing files in a directory >>
 ==================================================================
 
+
+task list {
+    doLast {
+        File srcDir
+
+        // Create a file collection using a closure
+        FileCollection collection = files { srcDir.listFiles() }
+
+        srcDir = file('compose')
+        println "Contents of $srcDir.name"
+        collection.collect { relativePath(it) }.sort().each { println it }
+
+        srcDir = file('/var/lib/jenkins/workspace/mf4-installer')
+        println "Contents of $srcDir.name"
+        collection.collect { relativePath(it) }.sort().each { println it }
+
+
+
+    }
+}
+
+
+=========
+result >>
+=========
+gradle -q list
+
+Contents of compose
+compose/mesaforte.yml
+
+Contents of mf4-installer
+.env
+.git
+.gradle
+README.md
+build
+build.gradle
+build.gradle-zip
+compose
+gradle
+gradle.properties
+gradlew
+gradlew.bat
+input
+
+
+==================================================================
 
 
 
