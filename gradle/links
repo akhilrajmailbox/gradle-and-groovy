@@ -1,7 +1,14 @@
 
-gradle tasks >>
-https://docs.gradle.org/2.4/userguide/tutorial_using_tasks.html
 
 
-gradle user guid for version 3.3 >>
-https://docs.gradle.org/3.3/userguide/writing_build_scripts.html
+gradle intro >>
+https://www.youtube.com/watch?v=mPpncYETnTg
+
+gradle full tutorial (65 videos) >>
+https://www.youtube.com/watch?v=lzaFHmac5_k&list=PLAwxTw4SYaPk2JP5TFPx7g63PCkyBqjZn&index=1
+https://www.tutorialspoint.com/gradle/gradle_tasks.htm
+
+
+gradle type tasks >>
+https://www.oreilly.com/learning/write-your-own-custom-tasks-in-gradle
+

@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-inconsolata-n5-active wf-proximanova-n7-active wf-proximanova-n8-active wf-proximanova-n1-active wf-proximanova-n6-active wf-proximanova-n4-active wf-proximanova-i4-active wf-proximanova-n3-active wf-active"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Introduction to Gradle - Semaphore</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" media="all" href="Introduction-to-Gradle_files/application-f1207912f4f7c8de6d2f2f7e2d4ec2f9a42856909bc373bb.css">
+
+    <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="dD1moqgR8eC23OHMxvB6apcaGSSCEZ5PXI1jqlb51uyPcQYMqDPnZcViasZw96kzNex+pn8Ra24883hrK0eL4g==">
+
+    <link rel="shortcut icon" href="https://semaphoreci.com/assets/favicons/favicon.ico" type="image/x-ico">
+<link rel="apple-touch-icon" href="https://semaphoreci.com/assets/favicons/apple-touch-icon.png">
+
+<link rel="apple-touch-icon" sizes="57x57" href="https://semaphoreci.com/assets/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="72x72" href="https://semaphoreci.com/assets/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://semaphoreci.com/assets/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="https://semaphoreci.com/assets/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://semaphoreci.com/assets/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="https://semaphoreci.com/assets/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://semaphoreci.com/assets/favicons/apple-touch-icon-152x152.png">
+
+    <script src="Introduction-to-Gradle_files/collectedforms.js" type="text/javascript" id="CollectedForms-2358052" data-leadin-portal-id="2358052" data-leadin-env="prod" data-loader="hs-scriptloader"></script><script src="Introduction-to-Gradle_files/leadflows.js" type="text/javascript" id="LeadFlows-2358052" data-leadin-portal-id="2358052" data-leadin-env="prod" data-loader="hs-scriptloader"></script><script src="Introduction-to-Gradle_files/2358052_002.js" type="text/javascript" id="hs-script-loader"></script><script id="twitter-wjs" src="Introduction-to-Gradle_files/widgets.js"></script><script async="" src="Introduction-to-Gradle_files/analytics.js"></script><script id="hs-analytics" src="Introduction-to-Gradle_files/2358052.js"></script><script async="" src="Introduction-to-Gradle_files/st.js"></script><script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+      _st('install','RbFV7fCCJRFrhxKo7XGr','2.0.0');
+</script>
+
+    <script type="text/javascript">
+  (function(d,s,i,r) {
+    if (d.getElementById(i)){return;}
+      var n=d.createElement(s),e=d.getElementsByTagName(s)[0];
+      n.id=i;n.src='//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/2358052.js';
+      e.parentNode.insertBefore(n, e);
+  })(document,"script","hs-analytics",300000);
+</script>
+
+      <!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-28072419-1', 'auto', {'cookieDomain': 'semaphoreci.com', 'legacyCookieDomain': 'semaphoreci.com'});
+ga('send', 'pageview');
+
+// Trigger an event 5 seconds after a scroll.
+// When it goes out, closing the page will not count as a bounce.
+setTimeout(function() {
+  window.onscroll = function() {
+    window.onscroll = null; // Only track the event once
+    ga('send', 'event', 'scroll', 'read', {'page': window.location.pathname });
+  }
+}, 5000);
+
+</script>
+<!-- End Google Analytics -->
+
+
+      <meta property="og:url" content="https://semaphoreci.com/community/tutorials/introduction-to-gradle">
+  <meta property="og:title" content="Introduction to Gradle">
+  <meta property="og:description" content="In a middle ground between configuration and convention, Gradle is a fresh build tool for Java. Learn how to use it to manage tasks, dependencies and more.">
+  <meta property="og:image" content="https://d1dkupr86d302v.cloudfront.net/community/assets/social-media-icons/icon-tag-java-2eec71c97a51bcc10545338d9b02be63da819457ee8fe9cca6a9a2d82e29f13d.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://d1dkupr86d302v.cloudfront.net/community/assets/social-media-icons/icon-tag-java-2eec71c97a51bcc10545338d9b02be63da819457ee8fe9cca6a9a2d82e29f13d.png">
+  <meta name="twitter:site" content="@semaphoreci">
+  <meta name="twitter:title" content="Introduction to Gradle">
+  <meta name="twitter:description" content="In a middle ground between configuration and convention, Gradle is a fresh build tool for Java. Learn how to use it to manage tasks, dependencies and more.">
+  <meta name="twitter:url" content="https://semaphoreci.com/community/tutorials/introduction-to-gradle">
+
+  <link rel="alternate" type="application/atom+xml" title="Semaphore CI Community Tutorials" href="https://semaphoreci.com/community/tutorials.atom">
+
+    <link rel="alternate" type="application/atom+xml" title="Semaphore CI Community Tutorials on Java" href="https://semaphoreci.com/community/tags/java.atom">
+<link rel="canonical" href="https://semaphoreci.com/community/tutorials/introduction-to-gradle"><style type="text/css">.tk-inconsolata{font-family:"inconsolata",monospace;}.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><style type="text/css">@font-face{font-family:inconsolata;src:url(https://use.typekit.net/af/6eb605/000000000000000000012ace/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/6eb605/000000000000000000012ace/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/6eb605/000000000000000000012ace/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/03034e/00000000000000003b9ad1b1/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/03034e/00000000000000003b9ad1b1/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/03034e/00000000000000003b9ad1b1/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/6b4e48/00000000000000003b9ad1b3/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n8&v=3) format("woff2"),url(https://use.typekit.net/af/6b4e48/00000000000000003b9ad1b3/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n8&v=3) format("woff"),url(https://use.typekit.net/af/6b4e48/00000000000000003b9ad1b3/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n8&v=3) format("opentype");font-weight:800;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/b18774/00000000000000003b9ad1bd/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n1&v=3) format("woff2"),url(https://use.typekit.net/af/b18774/00000000000000003b9ad1bd/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n1&v=3) format("woff"),url(https://use.typekit.net/af/b18774/00000000000000003b9ad1bd/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n1&v=3) format("opentype");font-weight:100;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/921f74/00000000000000003b9ad1bb/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("woff2"),url(https://use.typekit.net/af/921f74/00000000000000003b9ad1bb/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("woff"),url(https://use.typekit.net/af/921f74/00000000000000003b9ad1bb/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3) format("opentype");font-weight:600;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}</style>
+  <script type="text/javascript" charset="utf-8" async="" src="Introduction-to-Gradle_files/button.js"></script><link rel="stylesheet" type="text/css" href="Introduction-to-Gradle_files/new_embed-59af57b2801d7d8cca80ebe043cdcf80.css"><style type="text/css">.st-install-RbFV7fCCJRFrhxKo7XGr .st-ui-result .st-ui-type-heading { color:#0089d7 !important }
+.st-install-RbFV7fCCJRFrhxKo7XGr .st-ui-result em {font-style:normal; font-weight:bold; background-color:#f6fcfe !important}</style><style type="text/css">.leadinModal-reset p,.leadinModal-reset div,.leadinModal-reset span,.leadinModal-reset h1,.leadinModal-reset h2,.leadinModal-reset h3,.leadinModal-reset h4,.leadinModal-reset h5,.leadinModal-reset h6,.leadinModal-reset a,.leadinModal-reset button,.leadinModal-reset img,.leadinModal-reset form,.leadinModal-reset label{background:none 0 0 auto repeat scroll padding-box transparent;background-color:transparent;background-image:none;border:0 none transparent;clear:none;clip:auto;cursor:auto;filter:none;float:none;height:auto;left:auto;letter-spacing:auto;line-height:auto;list-style:disc outside none;margin:0;overflow:visible;padding:0;page-break-after:auto;page-break-before:auto;position:static;transform:none;text-align:start;text-indent:auto;text-transform:none;top:auto;vertical-align:baseline;visibility:initial;width:auto;word-break:normal;word-spacing:normal;word-wrap:normal;z-index:auto}.leadinModal-reset p,.leadinModal-reset div,.leadinModal-reset span,.leadinModal-reset h1,.leadinModal-reset h2,.leadinModal-reset h3,.leadinModal-reset h4,.leadinModal-reset h5,.leadinModal-reset h6,.leadinModal-reset button,.leadinModal-reset img,.leadinModal-reset form,.leadinModal-reset label{color:inherit;text-decoration:none}.leadinModal-reset span,.leadinModal-reset a,.leadinModal-reset button,.leadinModal-reset img,.leadinModal-reset label{display:inline}.leadinModal-reset p,.leadinModal-reset div,.leadinModal-reset h1,.leadinModal-reset h2,.leadinModal-reset h3,.leadinModal-reset h4,.leadinModal-reset h5,.leadinModal-reset h6,.leadinModal-reset form{display:block}.leadinModal-reset button{text-align:center}.leadinModal .leadin-button{-webkit-border-radius:0.25em;-moz-border-radius:0.25em;-ms-border-radius:0.25em;-o-border-radius:0.25em;border-radius:0.25em;-webkit-appearance:none;cursor:pointer;font-size:1em;font-weight:bold;line-height:1;padding:1em 1.5em;width:100%}.leadinModal .leadin-button:focus,.leadinModal .leadin-button:hover{outline:none}.leadinModal.leadinModal-v3 .leadin-button{padding:0.7em 1.7em;font-weight:normal}@media only screen and (max-width: 768px){.leadinModal.leadinModal-v3 .leadin-button{padding:0.5em 1.7em !important;font-size:18px}}.leadin-button-extra-padding{padding:0.7em 1.7em !important}.leadinModal .leadin-footer-wrapper{display:block !important;clear:both;text-align:center}.leadinModal-v3 .leadin-footer-wrapper{background-color:#fff;padding:0.5em;border-top:1px solid #ddd}.leadinModal .leadinModal-close{-webkit-border-radius:0.33em;-moz-border-radius:0.33em;-ms-border-radius:0.33em;-o-border-radius:0.33em;border-radius:0.33em;position:absolute;top:5px;right:8px;cursor:pointer}.leadinModal .leadinModal-close:before{display:inline !important;-webkit-border-radius:0.33em;-moz-border-radius:0.33em;-ms-border-radius:0.33em;-o-border-radius:0.33em;border-radius:0.33em;content:"\00D7";font-size:25px;font-weight:normal;line-height:25px;height:25px;width:25px;text-align:center;color:#bbb;background:transparent}.leadinModal .leadinModal-close:hover:before,.leadinModal .leadinModal-close:active:before{color:#777}.leadinModal-v3 .leadinModal-close:before{color:#7a7676}.leadinModal-v3 .leadinModal-close:hover:before{color:#7a7676}.leadinModal .leadinModal-overlay{position:fixed;top:0;right:0;bottom:0;left:0;background:#000;filter:alpha(opacity=40);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";animation:leadinModal-fadein 0.5s;-webkit-animation:leadinModal-fadein 0.5s;-moz-animation:leadinModal-fadein 0.5s;-ms-animation:leadinModal-fadein 0.5s;-o-animation:leadinModal-fadein 0.5s;-webkit-backface-visibility:hidden;background-color:rgba(0,0,0,0.4)}.leadinModal .leadinModal-overlay.leadinModal-closing{animation:leadinModal-fadeout 0.5s;-webkit-animation:leadinModal-fadeout 0.5s;-moz-animation:leadinModal-fadeout 0.5s;-ms-animation:leadinModal-fadeout 0.5s;-o-animation:leadinModal-fadeout 0.5s;-webkit-backface-visibility:hidden}.leadinModal.leadinModal-v3 .leadinModal-overlay{filter:alpha(opacity=70);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";background-color:rgba(0,0,0,0.7)}.leadinModal .leadin-footer-link,.leadinModal .leadin-close-button{color:#999;display:inline !important;font-size:0.9em;text-decoration:none}.leadinModal .leadin-footer-link:hover,.leadinModal .leadin-close-button:hover{background:none;color:#999;text-decoration:underline;font-weight:normal}.leadinModal .leadin-close-button{background:transparent;text-decoration:underline;cursor:pointer}.leadinModal .leadin-close-button:focus{outline:thin dotted}.leadinModal-v3 .leadin-footer-link,.leadinModal-v3 .leadinModal .leadin-close-button,.leadinModal .leadinModal-v3 .leadin-close-button{font-size:0.93em}@media only screen and (max-width: 768px){.leadinModal-v3 .leadin-footer-link,.leadinModal-v3 .leadinModal .leadin-close-button,.leadinModal .leadinModal-v3 .leadin-close-button{font-size:1em}}@keyframes leadinModal-fadein{0%{opacity:0}100%{opacity:1}}@-webkit-keyframes leadinModal-fadein{0%{opacity:0}100%{opacity:1}}@-moz-keyframes leadinModal-fadein{0%{opacity:0}100%{opacity:1}}@-ms-keyframes leadinModal-fadein{0%{opacity:0}100%{opacity:1}}@-o-keyframes leadinModal-fadein{0%{opacity:0}100%{opacity:1}}@keyframes leadinModal-fadeout{0%{opacity:1}100%{opacity:0}}@-webkit-keyframes leadinModal-fadeout{0%{opacity:1}100%{opacity:0}}@-moz-keyframes leadinModal-fadeout{0%{opacity:1}100%{opacity:0}}@-ms-keyframes leadinModal-fadeout{0%{opacity:1}100%{opacity:0}}@-o-keyframes leadinModal-fadeout{0%{opacity:1}100%{opacity:0}}@keyframes leadinModal-rotation{0%{transform:rotate(0deg);-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);-o-transform:rotate(0deg)}100%{transform:rotate(359deg);-webkit-transform:rotate(359deg);-moz-transform:rotate(359deg);-ms-transform:rotate(359deg);-o-transform:rotate(359deg)}}@-webkit-keyframes leadinModal-rotation{0%{transform:rotate(0deg);-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);-o-transform:rotate(0deg)}100%{transform:rotate(359deg);-webkit-transform:rotate(359deg);-moz-transform:rotate(359deg);-ms-transform:rotate(359deg);-o-transform:rotate(359deg)}}@-moz-keyframes leadinModal-rotation{0%{transform:rotate(0deg);-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);-o-transform:rotate(0deg)}100%{transform:rotate(359deg);-webkit-transform:rotate(359deg);-moz-transform:rotate(359deg);-ms-transform:rotate(359deg);-o-transform:rotate(359deg)}}@-ms-keyframes leadinModal-rotation{0%{transform:rotate(0deg);-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);-o-transform:rotate(0deg)}100%{transform:rotate(359deg);-webkit-transform:rotate(359deg);-moz-transform:rotate(359deg);-ms-transform:rotate(359deg);-o-transform:rotate(359deg)}}@-o-keyframes leadinModal-rotation{0%{transform:rotate(0deg);-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);-o-transform:rotate(0deg)}100%{transform:rotate(359deg);-webkit-transform:rotate(359deg);-moz-transform:rotate(359deg);-ms-transform:rotate(359deg);-o-transform:rotate(359deg)}}@keyframes leadinModal-slideup{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:0}2%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-webkit-keyframes leadinModal-slideup{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:0}2%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-moz-keyframes leadinModal-slideup{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:0}2%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-ms-keyframes leadinModal-slideup{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:0}2%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-o-keyframes leadinModal-slideup{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:0}2%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@keyframes leadinModal-slidedown{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px)}}@-webkit-keyframes leadinModal-slidedown{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px)}}@-moz-keyframes leadinModal-slidedown{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px)}}@-ms-keyframes leadinModal-slidedown{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px)}}@-o-keyframes leadinModal-slidedown{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px)}}@keyframes leadinModal-flyin{0%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}100%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}}@-webkit-keyframes leadinModal-flyin{0%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}100%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}}@-moz-keyframes leadinModal-flyin{0%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}100%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}}@-ms-keyframes leadinModal-flyin{0%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}100%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}}@-o-keyframes leadinModal-flyin{0%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}100%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}}@keyframes leadinModal-flyout{0%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}}@-webkit-keyframes leadinModal-flyout{0%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}}@-moz-keyframes leadinModal-flyout{0%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}}@-ms-keyframes leadinModal-flyout{0%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}}@-o-keyframes leadinModal-flyout{0%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}}@keyframes leadinModal-dropin{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:0}2%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-webkit-keyframes leadinModal-dropin{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:0}2%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-moz-keyframes leadinModal-dropin{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:0}2%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-ms-keyframes leadinModal-dropin{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:0}2%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-o-keyframes leadinModal-dropin{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:0}2%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@keyframes leadinModal-dropout{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px)}}@-webkit-keyframes leadinModal-dropout{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px)}}@-moz-keyframes leadinModal-dropout{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px)}}@-ms-keyframes leadinModal-dropout{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px)}}@-o-keyframes leadinModal-dropout{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px)}}@keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-webkit-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-moz-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-ms-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-o-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}.leadinModal,.leadinModal *,.leadinModal *:before,.leadinModal *:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;border:0;margin:0;padding:0}.leadinModal{position:fixed;top:0;right:0;bottom:0;left:0;overflow:visible;-webkit-overflow-scrolling:touch;z-index:1999999999;font-size:16px}.leadinModal.leadinModal-hidden{display:none}.leadinModal .leadinModal-content{*zoom:1;-webkit-box-shadow:0px 0px 5px rgba(0,0,0,0.25);-moz-box-shadow:0px 0px 5px rgba(0,0,0,0.25);box-shadow:0px 0px 5px rgba(0,0,0,0.25);position:relative;padding:1em 1.5em;margin:0 auto;background:#fff;max-width:100%;width:30em;font-size:16px;overflow:auto;max-height:100%}.leadinModal .leadinModal-content:after{content:"";display:table;clear:both}.leadinModal .leadinModal-content h1,.leadinModal .leadinModal-content h2,.leadinModal .leadinModal-content h3,.leadinModal .leadinModal-content h4,.leadinModal .leadinModal-content h5,.leadinModal .leadinModal-content h6,.leadinModal .leadinModal-content p,.leadinModal .leadinModal-content ul,.leadinModal .leadinModal-content li,.leadinModal .leadinModal-content input{line-height:1.5;text-transform:none;letter-spacing:0;margin:0}.leadinModal .leadinModal-content h1,.leadinModal .leadinModal-content h2,.leadinModal .leadinModal-content h3,.leadinModal .leadinModal-content h4,.leadinModal .leadinModal-content h5,.leadinModal .leadinModal-content h6{color:#444;font-size:1.3em;font-weight:600;margin-bottom:0.6em}.leadinModal .leadinModal-content p,.leadinModal .leadinModal-content ul,.leadinModal .leadinModal-content li,.leadinModal .leadinModal-content input[type="text"],.leadinModal .leadinModal-content input[type="email"],.leadinModal .leadinModal-content input[type="tel"]{color:#666;font-size:1em;font-weight:normal}.leadinModal .leadinModal-content label{color:#666}.leadinModal .leadinModal-content p,.leadinModal .leadinModal-content ul,.leadinModal .leadinModal-content li{margin-bottom:0.6em}.leadinModal .leadinModal-content textarea,.leadinModal .leadinModal-content input[type="text"],.leadinModal .leadinModal-content input[type="email"],.leadinModal .leadinModal-content input[type="tel"]{-webkit-border-radius:0.25em;-moz-border-radius:0.25em;-ms-border-radius:0.25em;-o-border-radius:0.25em;border-radius:0.25em;background:#fff;width:100%;padding:0.5em 0.5em;border:1px solid #ddd;height:auto}.leadinModal.leadinModal-v3.leadinModal-preview .leadinModal-content{border-width:0}.leadinModal.leadinModal-v3 .leadinModal-content{font-size:14px}.leadinModal.leadinModal-v3 .leadin-form-wrapper{margin-top:0;padding-top:1.5em}.leadinModal.leadinModal-v3 .leadin-thank-you-wrapper{padding:0}.leadinModal.leadinModal-v3 .thank-you-message{font-size:16px;margin-bottom:21px}.leadinModal.leadinModal-v3 .thank-you-message,.leadinModal.leadinModal-v3 .thank-you-message *{text-align:center}.leadinModal.leadinModal-v3 .thank-you-message a{color:#00a4bd;text-decoration:underline}.leadinModal.leadinModal-v3 .thank-you-button{text-align:center}.leadinModal.leadinModal-v3.leadinModal-thanks .leadinModal-content .leadinModal-content-wrapper .leadin-content-body{padding:2em 2.5em}.leadinModal.leadinModal-v0 .dyno-image img,.leadinModal.leadinModal-v1 .dyno-image img,.leadinModal.leadinModal-v2 .dyno-image img{display:block;margin:0 auto;margin-right:15px}.leadinModal.leadinModal-v0 .leadin-message-wrapper h4,.leadinModal.leadinModal-v0 .leadin-message-wrapper p,.leadinModal.leadinModal-v1 .leadin-message-wrapper h4,.leadinModal.leadinModal-v1 .leadin-message-wrapper p,.leadinModal.leadinModal-v2 .leadin-message-wrapper h4,.leadinModal.leadinModal-v2 .leadin-message-wrapper p{margin-left:122px}.leadinModal.leadinModal-v0 .leadin-preview-wrapper-no-image h4,.leadinModal.leadinModal-v0 .leadin-preview-wrapper-no-image p,.leadinModal.leadinModal-v0 .leadin-preview-wrapper-no-image .advance-wrapper,.leadinModal.leadinModal-v0 .leadin-preview-wrapper-no-image .leadin-form-wrapper,.leadinModal.leadinModal-v1 .leadin-preview-wrapper-no-image h4,.leadinModal.leadinModal-v1 .leadin-preview-wrapper-no-image p,.leadinModal.leadinModal-v1 .leadin-preview-wrapper-no-image .advance-wrapper,.leadinModal.leadinModal-v1 .leadin-preview-wrapper-no-image .leadin-form-wrapper,.leadinModal.leadinModal-v2 .leadin-preview-wrapper-no-image h4,.leadinModal.leadinModal-v2 .leadin-preview-wrapper-no-image p,.leadinModal.leadinModal-v2 .leadin-preview-wrapper-no-image .advance-wrapper,.leadinModal.leadinModal-v2 .leadin-preview-wrapper-no-image .leadin-form-wrapper{margin-left:0 !important}.leadinModal.leadinModal-v3 .dyno-image img{display:block;margin:0 auto}.leadinModal.leadinModal-v3 h1,.leadinModal.leadinModal-v3 h2,.leadinModal.leadinModal-v3 h3,.leadinModal.leadinModal-v3 h4,.leadinModal.leadinModal-v3 h5,.leadinModal.leadinModal-v3 h6,.leadinModal.leadinModal-v3 p{line-height:1.4}.leadinModal.leadinModal-v3 .leadin-preview-wrapper{display:block}.leadinModal.leadinModal-v3 .leadin-form-wrapper{margin-bottom:0}.leadinModal.leadinModal-v3 .leadin-preview-wrapper-no-image h4,.leadinModal.leadinModal-v3 .leadin-preview-wrapper-no-image p,.leadinModal.leadinModal-v3 .leadin-preview-wrapper-no-image .advance-wrapper,.leadinModal.leadinModal-v3 .leadin-preview-wrapper-no-image .leadin-form-wrapper{margin-left:0 !important}@media only screen and (max-width: 768px){.leadinModal.leadinModal-v3 .leadin-preview-wrapper-no-image h4,.leadinModal.leadinModal-v3 .leadin-preview-wrapper-no-image p,.leadinModal.leadinModal-v3 .leadin-preview-wrapper-no-image .advance-wrapper,.leadinModal.leadinModal-v3 .leadin-preview-wrapper-no-image .leadin-form-wrapper{width:100% !important}}@media only screen and (max-width: 768px){.leadinModal.leadinModal-v3 .dyno-image{width:80px !important;margin-right:20px !important}.leadinModal.leadinModal-v3 .dyno-image img{max-width:80px;max-height:80px}.leadinModal.leadinModal-v3 .leadin-form-wrapper{padding-top:0}.leadinModal.leadinModal-v3 h1,.leadinModal.leadinModal-v3 h2,.leadinModal.leadinModal-v3 h3,.leadinModal.leadinModal-v3 h4,.leadinModal.leadinModal-v3 h5,.leadinModal.leadinModal-v3 h6{font-size:20px}.leadinModal.leadinModal-v3 p{font-size:16px}}@keyframes leadinModal-flyin{0%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}100%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}}@-webkit-keyframes leadinModal-flyin{0%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}100%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}}@-moz-keyframes leadinModal-flyin{0%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}100%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}}@-ms-keyframes leadinModal-flyin{0%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}100%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}}@-o-keyframes leadinModal-flyin{0%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}100%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}}@keyframes leadinModal-flyout{0%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}}@-webkit-keyframes leadinModal-flyout{0%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}}@-moz-keyframes leadinModal-flyout{0%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}}@-ms-keyframes leadinModal-flyout{0%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}}@-o-keyframes leadinModal-flyout{0%{opacity:1;transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{opacity:0;transform:translateY(-40px);-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px)}}@keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-webkit-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-moz-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-ms-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-o-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}.leadinModal.leadinModal-theme-default{padding-top:200px}@media only screen and (max-height: 700px){.leadinModal.leadinModal-theme-default{padding-top:50px}}.leadinModal.leadinModal-theme-default.leadinModal-closing .leadinModal-content,.leadinModal.leadinModal-theme-default.leadinModal-hiding .leadinModal-content{animation:leadinModal-flyout 0.5s;-webkit-animation:leadinModal-flyout 0.5s;-moz-animation:leadinModal-flyout 0.5s;-ms-animation:leadinModal-flyout 0.5s;-o-animation:leadinModal-flyout 0.5s;-webkit-backface-visibility:hidden}.leadinModal.leadinModal-theme-default .leadinModal-content{animation:leadinModal-flyin 0.5s;-webkit-animation:leadinModal-flyin 0.5s;-moz-animation:leadinModal-flyin 0.5s;-ms-animation:leadinModal-flyin 0.5s;-o-animation:leadinModal-flyin 0.5s;-webkit-backface-visibility:hidden;-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px;border-top-width:5px;border-top-style:solid}@media only screen and (max-width: 640px){.leadinModal.leadinModal-theme-default.leadinModal-v0 .leadin-message-wrapper p,.leadinModal.leadinModal-theme-default.leadinModal-v1 .leadin-message-wrapper p,.leadinModal.leadinModal-theme-default.leadinModal-v2 .leadin-message-wrapper p{display:inline-block;margin:0;margin-top:15px}}.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadinModal-content{border-top-width:0;background-color:#ebebeb;padding:0;width:40em}.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadin-content-body{padding:3em 3.5em}.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadinModal-close{top:7px;right:14px}.leadinModal.leadinModal-theme-default.leadinModal-v3 .dyno-image{display:inline-block;vertical-align:top;float:left;width:100px;margin-right:22px;margin-bottom:15px}.leadinModal.leadinModal-theme-default.leadinModal-v3 .clearfix-preview-wrapper{clear:both}.leadinModal.leadinModal-theme-default.leadinModal-v3.leadinModal-preview h4,.leadinModal.leadinModal-theme-default.leadinModal-v3.leadinModal-preview p,.leadinModal.leadinModal-theme-default.leadinModal-v3.leadinModal-form h4,.leadinModal.leadinModal-theme-default.leadinModal-v3.leadinModal-form p{margin-left:122px}.leadinModal.leadinModal-theme-default.leadinModal-v3.leadinModal-preview h4{margin-bottom:0.6em}.leadinModal.leadinModal-theme-default.leadinModal-v3.leadinModal-preview .advance-wrapper{margin-left:122px}.leadinModal.leadinModal-theme-default.leadinModal-v3.leadinModal-preview .leadin-button{padding:0.7em 1.7em}.leadinModal.leadinModal-theme-default.leadinModal-v3.leadinModal-form .leadin-form-wrapper{padding-top:0;margin-left:122px}@media only screen and (max-width: 768px){.leadinModal.leadinModal-theme-default.leadinModal-v3{margin-top:30px;margin-left:10px;margin-right:10px}.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadin-content-body{padding:1.5em 1.25em}.leadinModal.leadinModal-theme-default.leadinModal-v3 .clearfix-image,.leadinModal.leadinModal-theme-default.leadinModal-v3 .clearfix-image-description{clear:both}.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadin-preview-wrapper,.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadin-message-wrapper{margin-bottom:0}.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadin-preview-wrapper h4,.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadin-message-wrapper h4{margin-left:100px;margin-right:21px}.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadin-preview-wrapper p,.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadin-message-wrapper p{margin-left:0;margin-top:10px}.leadinModal.leadinModal-theme-default.leadinModal-v3 .advance-wrapper{margin-left:0 !important}.leadinModal.leadinModal-theme-default.leadinModal-v3 .leadin-form-wrapper{margin:0 !important}}@keyframes leadinModal-slideup{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:0}2%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-webkit-keyframes leadinModal-slideup{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:0}2%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-moz-keyframes leadinModal-slideup{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:0}2%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-ms-keyframes leadinModal-slideup{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:0}2%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-o-keyframes leadinModal-slideup{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:0}2%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@keyframes leadinModal-slidedown{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px)}}@-webkit-keyframes leadinModal-slidedown{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px)}}@-moz-keyframes leadinModal-slidedown{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px)}}@-ms-keyframes leadinModal-slidedown{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px)}}@-o-keyframes leadinModal-slidedown{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(800px);-webkit-transform:translateY(800px);-moz-transform:translateY(800px);-ms-transform:translateY(800px);-o-transform:translateY(800px)}}@keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-webkit-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-moz-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-ms-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-o-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}.leadinModal.leadinModal-theme-bottom-right-corner,.leadinModal.leadinModal-theme-bottom-left-corner{top:auto;bottom:0;overflow:visible}.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-overlay,.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-overlay{display:none}.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-closing .leadinModal-content,.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-hiding .leadinModal-content,.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-closing .leadinModal-content,.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-hiding .leadinModal-content{animation:leadinModal-slidedown 0.5s;-webkit-animation:leadinModal-slidedown 0.5s;-moz-animation:leadinModal-slidedown 0.5s;-ms-animation:leadinModal-slidedown 0.5s;-o-animation:leadinModal-slidedown 0.5s;-webkit-backface-visibility:hidden}.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-content,.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-content{animation:leadinModal-slideup 0.5s;-webkit-animation:leadinModal-slideup 0.5s;-moz-animation:leadinModal-slideup 0.5s;-ms-animation:leadinModal-slideup 0.5s;-o-animation:leadinModal-slideup 0.5s;-webkit-backface-visibility:hidden}.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-content,.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-content{position:fixed;bottom:0;border-top-width:5px;border-top-style:solid}.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-content{-webkit-border-radius:5px 0 0 0;-moz-border-radius:5px 0 0 0;-ms-border-radius:5px 0 0 0;-o-border-radius:5px 0 0 0;border-radius:5px 0 0 0;right:0;left:auto}.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-content{-webkit-border-radius:0 5px 0 0;-moz-border-radius:0 5px 0 0;-ms-border-radius:0 5px 0 0;-o-border-radius:0 5px 0 0;border-radius:0 5px 0 0;left:0;right:auto}@media only screen and (max-width: 640px){.leadinModal-v0.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-content,.leadinModal-v0.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-content,.leadinModal-v1.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-content,.leadinModal-v1.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-content,.leadinModal-v2.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-content,.leadinModal-v2.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-content{-webkit-border-radius:0px;-moz-border-radius:0px;-ms-border-radius:0px;-o-border-radius:0px;border-radius:0px}}@media only screen and (max-width: 768px){.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-content,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-content{-webkit-border-radius:0px;-moz-border-radius:0px;-ms-border-radius:0px;-o-border-radius:0px;border-radius:0px}}@media only screen and (max-width: 640px){.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-v0 .leadin-message-wrapper p,.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-v1 .leadin-message-wrapper p,.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-v2 .leadin-message-wrapper p,.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-v0 .leadin-message-wrapper p,.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-v1 .leadin-message-wrapper p,.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-v2 .leadin-message-wrapper p{display:inline-block;margin:0;margin-top:15px}}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-close,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-close{top:7px;right:14px}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .dyno-image,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .dyno-image{vertical-align:top;float:left;width:100px;margin-right:22px}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-content,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-content{padding:0;width:30em}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .leadin-content-body,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .leadin-content-body{padding:1em 1.5em;padding-bottom:1.5em}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .leadin-message-wrapper,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .leadin-message-wrapper{margin-bottom:0}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .clearfix-image-form,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .clearfix-image-form{clear:both}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner h4,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner h4{margin-right:21px}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .clearfix-preview-wrapper,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .clearfix-preview-wrapper{clear:both}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-preview .leadin-preview-wrapper h4,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-preview .leadin-preview-wrapper p,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-preview .leadin-preview-wrapper .advance-wrapper,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-preview .leadin-preview-wrapper h4,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-preview .leadin-preview-wrapper p,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-preview .leadin-preview-wrapper .advance-wrapper{margin-left:122px}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-preview .leadin-preview-wrapper h4,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-preview .leadin-preview-wrapper h4{margin-bottom:0.6em}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-preview .leadin-preview-wrapper .leadin-button,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-preview .leadin-preview-wrapper .leadin-button{padding:0.7em 1.7em}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form h4,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form p,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form .advance-wrapper,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form h4,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form p,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form .advance-wrapper{margin-left:122px}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form .dyno-image,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form .dyno-image{float:left}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form .leadin-preview-wrapper h4,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form .leadin-preview-wrapper p,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form .leadin-preview-wrapper h4,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form .leadin-preview-wrapper p{padding-right:21px}@media only screen and (min-width: 768px){.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form p,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form p{margin-bottom:0}}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form .leadinModal-content,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-thanks .leadinModal-content,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form .leadinModal-content,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-thanks .leadinModal-content{background-color:#ebebeb}@media only screen and (max-width: 768px){.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .dyno-image,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .dyno-image{margin-bottom:15px}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .leadinModal-content,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .leadinModal-content{width:100%}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner .clearfix-image-description,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner .clearfix-image-description{clear:both}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-preview .leadin-preview-wrapper .dyno-image,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-preview .leadin-preview-wrapper .dyno-image{display:inline-block;float:left}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-preview .leadin-preview-wrapper h4,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-preview .leadin-preview-wrapper h4{margin-left:100px;margin-bottom:0}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-preview .leadin-preview-wrapper p,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-preview .leadin-preview-wrapper p{display:inline-block;width:100%;margin-left:0;margin-bottom:5px;margin-top:12px}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-preview .leadin-preview-wrapper .advance-wrapper,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-preview .leadin-preview-wrapper .advance-wrapper{margin:0 !important}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form h4,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form h4{margin-left:100px;margin-bottom:0}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form p,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form p{margin-left:0}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form .leadin-content-body,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form .leadin-content-body{padding:1.5em 1.25em}.leadinModal-v3.leadinModal.leadinModal-theme-bottom-right-corner.leadinModal-form .leadin-message-wrapper p,.leadinModal-v3.leadinModal.leadinModal-theme-bottom-left-corner.leadinModal-form .leadin-message-wrapper p{margin-top:10px}}@keyframes leadinModal-dropin{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:0}2%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-webkit-keyframes leadinModal-dropin{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:0}2%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-moz-keyframes leadinModal-dropin{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:0}2%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-ms-keyframes leadinModal-dropin{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:0}2%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@-o-keyframes leadinModal-dropin{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:0}1%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:0}2%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px);opacity:1}100%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);opacity:1}}@keyframes leadinModal-dropout{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px)}}@-webkit-keyframes leadinModal-dropout{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px)}}@-moz-keyframes leadinModal-dropout{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px)}}@-ms-keyframes leadinModal-dropout{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px)}}@-o-keyframes leadinModal-dropout{0%{transform:translateY(0);-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0)}100%{transform:translateY(-800px);-webkit-transform:translateY(-800px);-moz-transform:translateY(-800px);-ms-transform:translateY(-800px);-o-transform:translateY(-800px)}}@keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-webkit-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-moz-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-ms-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}@-o-keyframes leadinModal-pulse{0%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}70%{-webkit-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);-moz-box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25);box-shadow:inset 0 0 0 300px rgba(255,255,255,0.25)}100%{-webkit-box-shadow:inset 0 0 0 300px transparent;-moz-box-shadow:inset 0 0 0 300px transparent;box-shadow:inset 0 0 0 300px transparent}}.leadinModal.leadinModal-theme-top{bottom:auto}.leadinModal.leadinModal-theme-top .leadinModal-overlay{display:none}.leadinModal.leadinModal-theme-top.leadinModal-closing .leadinModal-content,.leadinModal.leadinModal-theme-top.leadinModal-hiding .leadinModal-content{animation:leadinModal-dropout 0.5s;-webkit-animation:leadinModal-dropout 0.5s;-moz-animation:leadinModal-dropout 0.5s;-ms-animation:leadinModal-dropout 0.5s;-o-animation:leadinModal-dropout 0.5s;-webkit-backface-visibility:hidden}.leadinModal.leadinModal-theme-top .leadinModal-content{animation:leadinModal-dropin 0.5s;-webkit-animation:leadinModal-dropin 0.5s;-moz-animation:leadinModal-dropin 0.5s;-ms-animation:leadinModal-dropin 0.5s;-o-animation:leadinModal-dropin 0.5s;-webkit-backface-visibility:hidden;width:100%;padding:0;-webkit-border-radius:0;-moz-border-radius:0;-ms-border-radius:0;-o-border-radius:0;border-radius:0;border-bottom-width:5px;border-bottom-style:solid}.leadinModal.leadinModal-theme-top .leadinModal-content-wrapper{padding:0.5em 1.8em;max-width:1024px;margin:0 auto}.leadinModal.leadinModal-theme-top.leadinModal-v0.leadinModal-form .leadinModal-content-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v1.leadinModal-form .leadinModal-content-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v2.leadinModal-form .leadinModal-content-wrapper{padding:1.5em 1.8em}.leadinModal.leadinModal-theme-top.leadinModal-v0.leadinModal-form .leadin-form-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v1.leadinModal-form .leadin-form-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v2.leadinModal-form .leadin-form-wrapper{margin:0}.leadinModal.leadinModal-theme-top.leadinModal-v0.leadinModal-form .leadin-message-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v1.leadinModal-form .leadin-message-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v2.leadinModal-form .leadin-message-wrapper{width:54%;float:left;margin-right:4%}.leadinModal.leadinModal-theme-top.leadinModal-v0.leadinModal-form .leadin-form-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v1.leadinModal-form .leadin-form-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v2.leadinModal-form .leadin-form-wrapper{width:42%;float:left;margin-top:0;padding-top:0}@media only screen and (max-width: 640px){.leadinModal.leadinModal-theme-top.leadinModal-v0 .leadin-footer-link,.leadinModal.leadinModal-theme-top.leadinModal-v0 .leadin-close-button,.leadinModal.leadinModal-theme-top.leadinModal-v1 .leadin-footer-link,.leadinModal.leadinModal-theme-top.leadinModal-v1 .leadin-close-button,.leadinModal.leadinModal-theme-top.leadinModal-v2 .leadin-footer-link,.leadinModal.leadinModal-theme-top.leadinModal-v2 .leadin-close-button{position:relative;top:11px}.leadinModal.leadinModal-theme-top.leadinModal-v0.leadinModal-thanks .leadin-footer-link,.leadinModal.leadinModal-theme-top.leadinModal-v0.leadinModal-thanks .leadin-close-button,.leadinModal.leadinModal-theme-top.leadinModal-v1.leadinModal-thanks .leadin-footer-link,.leadinModal.leadinModal-theme-top.leadinModal-v1.leadinModal-thanks .leadin-close-button,.leadinModal.leadinModal-theme-top.leadinModal-v2.leadinModal-thanks .leadin-footer-link,.leadinModal.leadinModal-theme-top.leadinModal-v2.leadinModal-thanks .leadin-close-button{top:0}.leadinModal.leadinModal-theme-top.leadinModal-v0 .leadin-message-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v1 .leadin-message-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v2 .leadin-message-wrapper{width:initial !important;float:none !important}.leadinModal.leadinModal-theme-top.leadinModal-v0 .leadin-message-wrapper p,.leadinModal.leadinModal-theme-top.leadinModal-v1 .leadin-message-wrapper p,.leadinModal.leadinModal-theme-top.leadinModal-v2 .leadin-message-wrapper p{display:inline-block;margin:0;margin-top:15px}.leadinModal.leadinModal-theme-top.leadinModal-v0 .leadin-form-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v1 .leadin-form-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v2 .leadin-form-wrapper{width:initial !important;float:none !important}}.leadinModal.leadinModal-theme-top.leadinModal-v3 .leadinModal-close{top:7px;right:14px}.leadinModal.leadinModal-theme-top.leadinModal-v3 .dyno-image{vertical-align:top;float:left;width:100px;margin-right:22px}.leadinModal.leadinModal-theme-top.leadinModal-v3 .leadinModal-content-wrapper{padding:0.6em 1.8em}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-preview h4{font-size:16px;padding-top:4px}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-preview .advance-wrapper{padding-top:1px}@media only screen and (min-width: 768px){.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-preview .advance-wrapper{margin-right:21px;display:inline-block;vertical-align:initial}}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-preview .leadin-preview-wrapper{display:table}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-preview .leadin-button{padding:0.5em 1.7em}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form .leadinModal-content,.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-thanks .leadinModal-content{background-color:#ebebeb;border-width:0;border-bottom-width:4px;border-style:solid}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form .leadinModal-content-wrapper,.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-thanks .leadinModal-content-wrapper{padding:0;max-width:none}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form .leadin-content-body,.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-thanks .leadin-content-body{padding:14px 21px;max-width:1024px;margin:0 auto;padding:2em 2.5em}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form h4,.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form p{display:block;margin-left:122px}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form .leadin-content-body-clear{*zoom:1}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form .leadin-content-body-clear:after{content:"";display:table;clear:both}@media only screen and (min-width: 768px){.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form .leadin-message-wrapper{width:54%;float:left;margin-right:4%}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form .leadin-form-wrapper{width:42%;float:left;margin-top:0;padding-top:0}}@media only screen and (max-width: 768px){.leadinModal.leadinModal-theme-top.leadinModal-v3 .leadinModal-content{width:100%}.leadinModal.leadinModal-theme-top.leadinModal-v3 h4{font-size:20px !important;display:inline-block}.leadinModal.leadinModal-theme-top.leadinModal-v3 .advance-wrapper{display:inline-block;width:100%}.leadinModal.leadinModal-theme-top.leadinModal-v3 .leadin-message-wrapper p{display:inline-block !important;width:100%;margin-top:1em}.leadinModal.leadinModal-theme-top.leadinModal-v3 .dyno-image{margin-bottom:15px}.leadinModal.leadinModal-theme-top.leadinModal-v3 .leadin-message-wrapper{margin-bottom:0}.leadinModal.leadinModal-theme-top.leadinModal-v3 .clearfix-image-form{clear:both}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-preview .leadinModal-content-wrapper{padding:1em 1.5em;padding-bottom:1.5em}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-preview h4{margin-bottom:10px}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-preview .leadin-preview-wrapper{display:block !important}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form .leadin-content-body{padding:1.5em 1.25em}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form h4{margin-left:100px;margin-right:21px;margin-bottom:0}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form p{margin-left:0 !important;margin-top:0}.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-form .leadinModal-content,.leadinModal.leadinModal-theme-top.leadinModal-v3.leadinModal-thanks .leadinModal-content{border-width:0;border-top-width:5px}}.leadinModal .leadin-preview-wrapper{max-width:1000px;margin:0 auto;display:table}.leadinModal .leadin-preview-wrapper h4{margin:0}.leadinModal .leadin-preview-wrapper .advance-wrapper .leadin-button{margin-top:10px}.leadinModal .leadin-preview-wrapper .advance-wrapper:focus,.leadinModal .leadin-preview-wrapper .advance-wrapper:hover{outline:none}.leadinModal .leadin-message-wrapper{margin-bottom:1em}.leadinModal .dyno-image{display:table-cell;width:122px;vertical-align:middle;float:left}.leadinModal .dyno-image img{max-width:100px;height:auto;width:auto}.leadinModal-v0 .leadinModal .dyno-image,.leadinModal-v1 .leadinModal .dyno-image,.leadinModal-v2 .leadinModal .dyno-image{width:115px}.leadinModal .leadin-form-wrapper{margin-bottom:1em;margin-top:1.5em}.leadinModal .leadin-input-wrapper label{display:block;font-weight:600;padding-top:0.8em;font-size:1em;cursor:pointer;float:none}.leadinModal .leadin-input-wrapper .error-text{font-size:0.8em;font-weight:initial;color:#f33f33;margin-left:0.3em}.leadinModal .leadin-input-wrapper .mailcheck-suggestion{color:#818181;font-weight:normal;float:right;margin-left:1em;font-size:0.8em;position:relative;top:0.2em}.leadinModal .leadin-input-wrapper .mailcheck-suggestion a{color:#222;font-weight:bold}.leadinModal .leadin-input-wrapper input[type="text"],.leadinModal .leadin-input-wrapper input[type="email"],.leadinModal .leadin-input-wrapper input[type="tel"]{margin:0.3em 0 0}.leadinModal .leadin-input-wrapper input[type="text"]:hover,.leadinModal .leadin-input-wrapper input[type="email"]:hover,.leadinModal .leadin-input-wrapper input[type="tel"]:hover{border:1px solid #ddd}.leadinModal .leadin-input-wrapper input[type="text"]:focus,.leadinModal .leadin-input-wrapper input[type="email"]:focus,.leadinModal .leadin-input-wrapper input[type="tel"]:focus{border:1px solid #ddd;outline:none}.leadinModal .leadin-input-wrapper input[type="text"].input-error,.leadinModal .leadin-input-wrapper input[type="email"].input-error,.leadinModal .leadin-input-wrapper input[type="tel"].input-error{-webkit-box-shadow:inset 0 0px 3px 1px #f33f33;-moz-box-shadow:inset 0 0px 3px 1px #f33f33;box-shadow:inset 0 0px 3px 1px #f33f33}.leadinModal .leadin-input-wrapper #leadin-recaptcha.input-error iframe{-webkit-box-shadow:0 0 3px 1px #f33f33;-moz-box-shadow:0 0 3px 1px #f33f33;box-shadow:0 0 3px 1px #f33f33}.leadinModal .leadin-button-wrapper{padding-top:1em}.leadinModal #leadin-recaptcha{padding-top:1em}.leadinModal .leadin-thank-you-wrapper{text-align:center;padding:1em 2em}.leadinModal-theme-top .leadin-preview-wrapper .dyno-image{display:none}.leadinModal-theme-top .leadin-preview-wrapper h4{display:table-cell;padding-right:20px}.leadinModal-theme-top .leadin-preview-wrapper .advance-wrapper{display:table-cell;vertical-align:middle;margin:0}.leadinModal-theme-top .leadin-preview-wrapper .advance-wrapper .leadin-button{padding:0.3em 0.5em;margin:0}.leadinModal-theme-top.leadinModal-v2 .leadin-thank-you-wrapper{padding-bottom:1em}@media only screen and (min-width: 640px){.leadinModal-theme-top.leadinModal-v2 .leadin-message-wrapper{width:40%;float:left;margin-right:4%}.leadinModal-theme-top.leadinModal-v2 .leadin-form-wrapper{width:56%;float:left}}.leadinModal-theme-top.leadinModal-v3 .leadin-thank-you-wrapper{padding-bottom:1em}@media only screen and (min-width: 992px){.leadinModal-theme-top.leadinModal-v3 .leadin-message-wrapper{width:40%;float:left;margin-right:4%}.leadinModal-theme-top.leadinModal-v3 .leadin-form-wrapper{width:56%;float:left}}.leadinModal-v2 .leadin-preview-wrapper .dyno-image{padding-top:0}.leadinModal-v2 .leadin-preview-wrapper h4,.leadinModal-v2 .leadin-preview-wrapper .advance-wrapper{margin-left:115px}.leadinModal-v2 .leadin-preview-wrapper .advance-wrapper .leadin-button{padding:0.5em 0.7em}
+</style></head>
+
+  <body data-prefix="tutorial" data-signed-in="false" data-current-user-id="" data-root="https://semaphoreci.com/community">
+
+    <header>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-header">
+        <a class="navbar-brand" href="https://semaphoreci.com/"><img alt="Semaphore - Continuous Integration, Deployment, TDD, DevOps tutorials" src="Introduction-to-Gradle_files/logo-semaphore-a6d954e176b6975b511f314a0cc808dc94a8030210077.svg" width="140" height="35"></a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-collapse-1">
+        
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="" href="https://semaphoreci.com/product">Product</a></li>
+          <li><a class="" href="https://semaphoreci.com/product/docker">Docker</a></li>
+          <li><a href="https://semaphoreci.com/pricing">Pricing</a></li>
+          <li><a href="https://semaphoreci.com/docs">Documentation</a></li>
+          <li><a href="https://semaphoreci.com/community/tutorials">Tutorials</a></li>
+          <li><a href="https://semaphoreci.com/blog">Blog</a></li>
+            <li><a href="https://semaphoreci.com/users/sign_in">Sign In</a></li>
+            <li><span><a class="btn btn-primary navbar-button" href="https://semaphoreci.com/users/sign_up" role="button">Sign Up</a></span></li>
+        </ul>
+
+          <div class="subscription-header new-subscription-popup" style="display: none;">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 u-mb-0">
+        <button type="button" class="close" id="subscribe-close"><span aria-hidden="true">×</span></button>
+      </div>
+      <span id="new-subscription-dialog">
+        <div class="col-sm-6 u-mb-20">
+          <p>🔥 Get our next Java tutorial right in your inbox.</p>
+        </div>
+        <div class="col-sm-6 subscription-header-form new-subscription-tag">
+          <form class="form-inline" id="new-email-subscription-form" data-tag-name="Java">
+            <div class="form-group">
+              <input class="form-control input-sm" id="email" placeholder="Enter your email" type="text">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm" id="new-email-subscribe">Subscribe</button>
+          </form>
+        </div>
+      </span>
+    </div>
+  </div>
+</div>
+
+
+
+      </div><!-- navbar -->
+    </div> <!-- container -->
+  </nav>
+</header>
+
+
+    
+
+
+<script>
+
+  var _newCommentPath = "/community/tutorials/introduction-to-gradle/comments";
+  var _comments = [];
+
+    var _tag = {"id":11,"name":"Java","type":"ActsAsTaggableOn::Tag","subscribed":null,"path":"/community/subscription"};
+  var _tutorial = {"id":1,"name":"Introduction to Gradle","type":"Tutorial","subscribed":null,"path":"/community/subscription"};
+
+  var _like = {"path":"/community/tutorials/introduction-to-gradle/likes","count":2,"liked":null};
+</script>
+
+
+
+<div class="page-illustration page-illustration-none">
+
+  <div class="container">
+    <nav class="navigation navigation-top">
+
+  <div class="navigation-group navigation-group--search">
+  <form class="search-form" role="search">
+    <input class="form-control search-input" placeholder="Search tutorials" autocomplete="off" autocorrect="off" autocapitalize="off" type="text">
+  </form>
+</div>
+
+  <div class="navigation-group"><a class="explore tags" href="https://semaphoreci.com/community/tags">Explore tags</a></div>
+
+  <div class="navigation-group">
+  <a href="https://semaphoreci.com/community/tutorials.atom"><span class="icons-share icon-rss">RSS</span>RSS</a>
+</div>
+
+  <div class="navigation-group navigation-group-floated-oposite">
+  <a class="nav-link-back" href="https://semaphoreci.com/community/tutorials">All tutorials</a>
+</div>
+
+
+    <div class="navigation-group navigation-group-fluid">
+  <span class="earn">Earn up to $200</span>
+  <a class="btn btn-primary pull-right" href="https://semaphoreci.com/community/write-for-us">Write a tutorial</a>
+</div>
+
+
+</nav>
+
+  </div>
+
+  <div class="post-photo text-center">
+    
+  </div> <!-- post-photo -->
+
+  <div ng-app="commentsApp" ng-controller="CommentListController as commentListController" class="container ng-scope">
+
+
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+
+        <article class="single-item block-longform" itemscope="" itemtype="http://schema.org/Article">
+
+          <header class="post-header">
+            <div class="media">
+    <a class="media-left" itemprop="author" itescope="" itemtype="http://schema.org/Person" href="https://semaphoreci.com/community/authors/malizmaj">
+      <img class="avatar" itemprop="image" itescope="" itemtype="http://schema.org/ImageObject" src="Introduction-to-Gradle_files/810eea55396d48f2ce15710d3fce5b14.png" alt="810eea55396d48f2ce15710d3fce5b14" width="88" height="88">
+</a>
+  <div class="media-body">
+    <ul class="list-inline post-info">
+        <li itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a itemprop="name" href="https://semaphoreci.com/community/authors/malizmaj">Aleksandar Olić</a></li>
+
+      <li itemprop="datePublished">Mar 18, 2015</li>
+
+
+      <li>
+        <a href="https://semaphoreci.com/community/tutorials/introduction-to-gradle#comments">
+          <span itemprop="commentCount">
+            <ng-pluralize count="commentListController.comments.length" when="{'one': '1 comment', 'other': '{} comments'}">0 comments</ng-pluralize>
+          </span>
+</a>      </li>
+
+      <li itemprop="keywords">
+        Tagged as
+          <a href="https://semaphoreci.com/community/tags/java">Java</a>
+      </li>
+    </ul>
+  </div>
+  <div class="media-right media-twitter">
+  <iframe id="twitter-widget-0" scrolling="no" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 60px; height: 20px;" title="Twitter Tweet Button" src="Introduction-to-Gradle_files/tweet_button.html" frameborder="0"></iframe>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</div> 
+
+</div>
+
+          </header>
+
+          
+            <h1 class="page-title" itemprop="name">Introduction to Gradle</h1>
+
+            <p class="page-subtitle page-intro" itemprop="about">In a 
+middle ground between configuration and convention, Gradle is a fresh 
+build tool for Java. Learn how to use it to manage tasks, dependencies 
+and more.</p>
+
+          <!--<div class="jumbotron post-meta block-subscribe-to-tag">
+  <img class="jumbotron_img" width="40" height="40" itemprop="image" title="java" alt="java" src="https://d1dkupr86d302v.cloudfront.net/community/assets/tag-icons/icon-tag-java-a4369d7c91531f703459d9c1164ca9453001b0a348a520a8ee8aca9dacc96016.svg" />
+  <span class="subscription-tag subscription-tag-top">
+  </span>
+  <div class="tutorial-like pull-right">
+  </div>
+</div>
+-->
+
+          
+            <div class="side-block-brought-to-you text-center" itemprop="sourceOrganization" itemscope="" itemtype="http://schema.org/Organization">
+  <strong>Brought to you by</strong>
+  <span itemprop="logo"><img alt="" src="Introduction-to-Gradle_files/logo-bef61be13db32445ca8e5723daf986057bc9be5e4aeca016fa3cd64.svg" width="44"></span>
+  <h3 itemprop="name">Semaphore</h3>
+  <a id="semaphore-learn-more" class="btn btn-primary" itemprop="url" href="https://semaphoreci.com/">Learn More</a>
+</div>
+
+
+            <section id="tutorial-content" class="block-center-img" itemprop="text" ng-non-bindable="">
+              <p><a href="https://www.gradle.org/">Gradle</a> is a free Java build tool for project
+automation, similar to <a href="http://ant.apache.org/">Ant</a> and <a href="http://maven.apache.org/">Maven</a>. 
+It's used by software developers working in Java for running common repetitive
+tasks in project lifecycle, like compiling code, resolving dependencies,
+packaging, unit testing, code execution and deployment. Google positioned Gradle
+as the build system of choice for Android and integrated it in Android Studio.</p>
+
+<p>Gradle combines approaches of Ant and Maven providing a middle ground between
+configuration and convention. Gradle is compatible with both, as you can use
+the existing Ant tasks and Maven repositories. Projects are auto-configured with
+sensible defaults, but the configuration can be easily changed.</p>
+
+<p>Unlike Ant and Maven which use XML for scripting, Gradle uses <a href="http://groovy.codehaus.org/">Groovy</a>, 
+a Domain Specific Language that's a subset of Java with plenty of syntactic
+sugar. That makes the scripts much more concise and expressive. Learning Groovy
+is not required as you can use plain Java, but it helps.</p>
+
+<p>All the project build configuration goes into <code>build.gradle</code> file, an executable
+Groovy script which runs when you issue <code>gradle someTask</code> command.</p>
+
+<h2>Installing Gradle</h2>
+
+<p>Gradle requires Java JDK/JRE 6 or higher. To download Gradle go to the 
+<a href="http://www.gradle.org/downloads">Gradle download page</a> and download the 
+binaries and unpack them where you want the application to reside.</p>
+
+<p>After that open your <code>.bash_profile</code> or <code>.bashrc</code> file and add the <code>bin</code> folder
+from the unpacked Gradle folder to you PATH system variable.</p>
+
+<p>So if you unpacked it in your home directory under <code>gradle</code> folder you add the
+following:</p>
+
+<pre><code>export PATH="$PATH":~/gradle/bin
+</code></pre>
+
+<p>Now Gradle should be available from the command line. To check run:</p>
+
+<pre><code>gradle -v
+</code></pre>
+
+<h2>Helpful commands</h2>
+
+<p>Gradle provides many common tasks out-of-the-box by convention. To see output of
+ all the available tasks go to your project folder and run:</p>
+
+<pre><code>gradle tasks --all
+</code></pre>
+
+<p>For more information on the options and flags:</p>
+
+<pre><code>gradle --help
+</code></pre>
+
+<p>To see details of structure and state of the current build run:</p>
+
+<pre><code>gradle properties
+</code></pre>
+
+<p>Gradle ships with GUI which you can get to by:</p>
+
+<pre><code>gradle --gui
+</code></pre>
+
+<h2>Building with Gradle</h2>
+
+<p>When building Gradle first looks for a build configuration script <code>build.gradle</code>
+in the directory and evaluates the script. After that it executes the task and 
+any related dependency.</p>
+
+<p>Gradle uses several configuration files:</p>
+
+<ul>
+<li>
+<code>build.gradle</code> specifies a project and its tasks.</li>
+<li>
+<code>gradle.properties</code>  configures the properties of the build.</li>
+<li>
+<code>gradle.settings</code> describes which projects participate in multi-project build</li>
+</ul>
+
+<p>When creating a new project you can let Gradle create <code>build.gradle</code> and other 
+helpful files by running:</p>
+
+<pre><code>gradle init
+</code></pre>
+
+<p>Typical Java project usually requires source compilation, unit testing and Jar 
+file packaging. Those default tasks are available just by declaring a plugin 
+that ships with Gradle in build script. Open <code>build.gradle</code> and make sure that 
+following line is present:</p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'java'</span>
+</pre></div>
+
+<p>Run <code>gradle tasks</code> again and you should get much more tasks. </p>
+
+<p>Some of the more common tasks are:</p>
+
+<ul>
+<li><p><code>gradle build</code> for full build including compilation, testing and packaging</p></li>
+<li><p><code>gradle test</code> compiles the source file, the test file and executes the test</p></li>
+<li><p><code>gradle compileJava</code> compiles the source code</p></li>
+<li><p><code>gradle clean</code> deletes build directory</p></li>
+<li><p><code>gradle assemble</code> build without testing</p></li>
+<li><p><code>gradle check</code> compilation and test only</p></li>
+<li><p><code>gradle run</code> runs project as JVM application</p></li>
+</ul>
+
+<p>Note: To be able to run the application be sure to add 
+<code>apply plugin: 'application'</code> and specify the main class for execution 
+<code>mainClassName = 'yourPackage.MainClass'</code> in <code>build.gradle</code>.</p>
+
+<p>A minimal working <code>build.gradle</code> for a simple HelloWorld applciation would be
+very simple:</p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'java'</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'application'</span>
+
+<span class="n">mainClassName</span> <span class="o">=</span> <span class="s1">'main.java.HelloWorld'</span>
+</pre></div>
+
+<p>Gradle by convention expects the following directory structure in your project: </p>
+
+<ul>
+<li>
+<code>src/main/java</code> for production source code</li>
+<li>
+<code>src/test/java</code> for test source code </li>
+<li>
+<code>src/main/resources</code> will be included in the JAR file as resources</li>
+<li>
+<code>src/test/resources</code> will be included in the classpath used to run the tests</li>
+<li>
+<code>build</code> where Gradle outputs the build (compiled classes, jars, dependencies)</li>
+</ul>
+
+<p>If you just need to evaluate and run build file without any tasks executing add 
+<code>--dry-run</code> or <code>-m</code> flag. Another helpful flag is <code>--debug</code> or <code>-d</code> for 
+generating a lot more output and troubleshooting build problems.</p>
+
+<h3>Custom Tasks</h3>
+
+<p>Tasks are named collections of build instructions that Gradle executes as it 
+performs a build. If you have a specific build in mind you can create your own 
+task, and use Groovy or regular Java for logic. </p>
+
+<p>To write a custom <code>helloWorld</code> task just define it inside <code>build.gradle</code>: </p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">task</span> <span class="n">helloWorld</span> <span class="o">{</span>
+    <span class="n">doLast</span> <span class="o">{</span>
+        <span class="n">println</span> <span class="s1">'Hello world!'</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>There are alternative ways to do the same thing. A short form alternative is:</p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">task</span> <span class="n">helloWorld</span> <span class="o">&lt;&lt;</span> <span class="o">{</span>
+    <span class="n">println</span> <span class="s1">'Hello world!'</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>Now you can run <code>gradle helloWorld</code> and see the output. Optionally add <code>-q</code> flag
+ for log supression.</p>
+
+<p>You can add default task for the <code>gradle</code> command like this:</p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">defaultTasks</span> <span class="s1">'helloWorld'</span>
+</pre></div>
+
+<p>To control task dependencies and order of their execution use this syntax:</p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">task</span> <span class="nf">introduction</span><span class="o">(</span><span class="nl">dependsOn:</span> <span class="n">helloWorld</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="o">{</span>
+    <span class="n">println</span> <span class="s2">"I'm Gradle"</span>
+<span class="o">}</span>
+</pre></div>
+
+<pre><code>$ gradle introduction -q
+Hello world!
+I'm Gradle
+</code></pre>
+
+<p>You can run tasks using their abbreviated camel-case form. For example you can 
+run <code>helloWorld</code> like this:</p>
+
+<pre><code>gradle hW
+</code></pre>
+
+<p>You can run multiple tasks in one command, but each task gets executed only once.
+For example:</p>
+
+<pre><code>$ gradle introduction helloWorld 
+Hello world!
+I'm Gradle
+</code></pre>
+
+<p>Consult the user guide for :</p>
+
+<ul>
+<li>
+<a href="http://www.gradle.org/docs/current/userguide/tutorial_using_tasks.html">Getting started with tasks</a>,<br>
+</li>
+<li>
+<a href="http://www.gradle.org/docs/1.6/userguide/more_about_tasks.html">More advanced usage of tasks</a>,</li>
+<li>
+<a href="http://www.gradle.org/docs/current/userguide/tutorial_gradle_command_line.html">Task dependencies</a>.</li>
+</ul>
+
+<h2>Project Dependencies</h2>
+
+<p>If your Java project uses a non-standard library for extra functionality, then
+it's considered a dependency. Gradle can use main Maven repository for
+resolving and managing those dependencies.</p>
+
+<p>Dependencies are downloaded when you run the build and are put in your local
+cache making them available to the project. Gradle figures out which
+dependencies need to be rebuilt so that they match the project requirement,
+making the code work on every machine regardless of its local cache.</p>
+
+<p>To add the repository and external dependencies just declare following in the
+<code>build.gradle</code>:</p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">repositories</span> <span class="o">{</span>
+  <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+  <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.hibernate'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'hibernate-core'</span><span class="o">,</span> <span class="nl">version:</span> <span class="s1">'3.6.7.Final'</span>
+  <span class="n">testCompile</span> <span class="s2">"junit:junit:4.12"</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>The first dependency, <code>hibernate-core</code>, uses a long form declaration and <code>junit</code>
+the short form. They both get retrieved from Maven repository.</p>
+
+<p><code>compile</code> and <code>testCompile</code> represent dependency configuration. By declaring
+<code>hibernate-core</code> as a <code>compile</code> dependency we are telling Gradle it's required
+to compile the production source of the project. On the other hand,
+<code>testCompile</code> is for dependencies required to compile the test source of the
+project.</p>
+
+<p>You can also define <code>runtime</code> dependencies. These would be dependencies required
+for your classes at runtime in production environment. <code>testRuntime</code> if you want
+to include testing.</p>
+
+<p>Read <a href="http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html">the user guide for more information on project dependencies</a>.</p>
+
+<h2>Gradle Wrapper</h2>
+
+<p>Gradle Wrapper is script that allows you to run a Gradle build even if you don't
+have Gradle installed. It downloads Gradle as a shell and batch scripts, and
+provides Gradle functionality as if you had it installed, without actually
+installing it. That way you don't have to worry if other developers have Gradle
+installed on their local machines and what version.</p>
+
+<p>To enable it open <code>build.gradle</code> and add <code>wrapper</code> task like this:</p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">task</span> <span class="nf">wrapper</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Wrapper</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">gradleVersion</span> <span class="o">=</span> <span class="s1">'1.11'</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>Now run <code>gradle wrapper</code> task to download and cache the Gradle binaries, and 
+initialize the wrapper scripts. This adds following files in root of the project:</p>
+
+<pre><code>project_root
+└── gradlew
+└── gradlew.bat
+└── gradle
+    └── wrapper
+        └── gradle-wrapper.jar
+        └── gradle-wrapper.properties
+</code></pre>
+
+<p>Now you can use wrapper scripts, <code>gradlew</code> for *nix and <code>gradlew.bat</code> for 
+Windows, for build and not rely any longer on Gradle installation. 
+Those scripts are meant to be included in your version control so that anyone 
+can use them for the build.</p>
+
+<p>To execute <code>build</code> task using wrapper just run:</p>
+
+<pre><code>./gradlew build
+</code></pre>
+
+<p>You can read <a href="http://www.gradle.org/docs/1.6/userguide/gradle_wrapper.html">more information about wrapper here</a>.</p>
+
+<h2>Using Daemon to increase performance</h2>
+
+<p>Whenever you run a basic task it can take more than a few seconds to complete,
+and as your application grows it can become even slower. It is because everytime
+you run a Gradle command, JVM has to be started and all the code needs to be
+loaded in memory. There is a way to improve the performance and that is by using
+the Deamon.</p>
+
+<p>The Gradle Daemon is a Java process that runs your builds in the background on
+Gradle's behalf, so you don't need to start JVM and load all the Gradle classes
+every time you run a task. This cuts the startup and execution time and improves
+performance. This proves very useful if you invoke Gradle many times to execute
+a small number of relatively quick tasks.</p>
+
+<p>To use the Daemon you need to declare each time you want to run a task in it
+like this:</p>
+
+<pre><code>gradle --daemon someTask
+</code></pre>
+
+<p>When you use <code>--daemon</code> option, process will be active for several hours, after
+which it needs to be started again.</p>
+
+<p>If you want to run deamon by default for every task you have two ways to do it:</p>
+
+<p>1. Create <code>gradle.properties</code> file inside <code>~/.gradle/</code> folder and write
+<code>org.gradle.daemon=true</code> to it:</p>
+
+<pre><code>echo 'org.gradle.daemon=true' &gt; ~/.gradle/gradle.properties
+</code></pre>
+
+<p>2. Set system variable <code>GRADLE_OPTS</code> to <code>-Dorg.gradle.daemon=true</code> in your
+<code>.bash_profile</code> or <code>.bashrc</code>:</p>
+
+<pre><code>export GRADLE_OPTS="-Dorg.gradle.daemon=true"
+</code></pre>
+
+<p>Now every task is run inside daemon. Note that it is still experimental feature
+and shouldn't be relied to much in production mode.</p>
+
+<p>You can use <code>--no-daemon</code> explicitly to run a task without daemon.</p>
+
+<p>For more information read about <a href="http://www.gradle.org/docs/current/userguide/gradle_daemon.html">The Gradle Daemon here</a>.</p>
+
+<h2>Useful Resources</h2>
+
+<p>For more information on Gradle, read <a href="http://www.gradle.org/docs/1.6/userguide/userguide.html">the official Gradle user guide</a>. 
+Some interesting topics include::</p>
+
+<ul>
+<li><p><a href="http://www.gradle.org/docs/1.6/userguide/tutorial_using_tasks.html">Build script basics</a></p></li>
+<li><p><a href="http://www.gradle.org/docs/1.6/userguide/gradle_command_line.html">Gradle command line</a></p></li>
+<li><p><a href="http://www.gradle.org/docs/current/userguide/standard_plugins.html">A list of standard plugins</a></p></li>
+</ul>
+            </section>
+
+        </article>
+
+        <section class="page-block text-center block-author">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 author-bio">
+      <div class="title-image"><img class="img-circle" src="Introduction-to-Gradle_files/810eea55396d48f2ce15710d3fce5b14.png" alt="810eea55396d48f2ce15710d3fce5b14"></div>
+      <strong>Aleksandar Olić</strong>
+      <p></p><p>Loves connecting wild ideas into a harmonious unit. 
+Writer fusing classical thought with tech soul. You will find him either
+ chilling or researching some new exciting concept.</p><p></p>
+    </div>
+  </div>
+</section>
+
+
+        
+          
+          <div class="jumbotron post-meta block-subscribe-to-tag">
+  <img class="jumbotron_img" itemprop="image" title="java" alt="java" src="Introduction-to-Gradle_files/icon-tag-java-a4369d7c91531f703459d9c1164ca9453001b0a348a520.svg" width="40" height="40">
+  <span class="subscription-tag subscription-tag-old">  <a href="#" class="subscription-tag-button-old btn btn-primary btn-sm" id="subscribe-tag">Subscribe to new Java tutorials</a>
+</span>
+  <div class="tutorial-like likes"><div class="likes ">
+    <a data-toggle="modal" href="#modal-log-in-like" class="like modal-login-like" id="like" title="Heart this article, show the appreciation to the author"></a>
+  <span class="likes-count">
+    2
+  </span>
+</div></div>
+</div>
+
+
+        
+
+        <div class="row">
+  <div class="col-xs-12 text-center">
+    <div class="banner-funnel block-longform">
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <h3>Set up continuous integration and delivery for your project in a minute.</h3>
+          <p>Fast. Scalable. Easy to use.</p>
+        </div> <!-- col-sm-8 col-sm-offset-2 -->
+      </div> <!-- row -->
+      <a id="semaphore-try-for-free" class="btn btn-success btn-lg" href="https://semaphoreci.com/users/sign_up">Try Semaphore for Free</a>
+    </div>
+  </div>
+</div>
+
+
+        <div class="row c-related-articles">
+  <div class="col-xs-12">
+    <h3 class="h4 c-related-articles_headline"><strong>You May Also Like</strong></h3>
+    <ul class="list-unstyled">
+        <li class="listing-item--related"><a class="c-related-articles_link community-related-article" href="https://semaphoreci.com/community/tutorials/stubbing-and-mocking-with-mockito-2-and-junit">Stubbing and Mocking with Mockito 2 and JUnit</a></li>
+        <li class="listing-item--related"><a class="c-related-articles_link community-related-article" href="https://semaphoreci.com/community/tutorials/dockerizing-a-java-play-application">Dockerizing a Java Play Application</a></li>
+        <li class="listing-item--related"><a class="c-related-articles_link community-related-article" href="https://semaphoreci.com/community/tutorials/build-and-deploy-a-java-web-application-with-docker-and-semaphore">Build and Deploy a Java Web Application with Docker and Semaphore</a></li>
+    </ul>
+  </div>
+</div>
+
+
+        <section class="comments">
+
+  <div class="comments-meta">
+    <div class="row">
+      <div class="col-xs-8 text-left">
+        <div class="comments-count">
+          <span itemprop="commentCount">
+            <ng-pluralize count="commentListController.comments.length" when="{'one': '1 comment', 'other': '{} comments'}">0 comments</ng-pluralize>
+          </span>
+          on this tutorial so far.
+          <span class="subscription-tutorial">  <a href="#modal-log-in-subscribe" data-toggle="modal" class="modal-login-subscription" id="subscribe">Subscribe to new comments</a>
+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <div class="media" id="comments">
+    <!-- ngRepeat: comment in commentListController.comments --><!-- ng-repeat -->
+  </div>
+
+
+
+    <div class="well">
+  <a href="#modal-log-in-comment" class="btn btn-primary btn-xs pull-right" data-toggle="modal">Sign In</a>
+  You must be logged in to comment.
+</div>
+
+
+</section>
+
+
+        
+  <div class="block-creative-commons text-center">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" rel="license" src="Introduction-to-Gradle_files/88x31.png"></a>
+    <p>This work is licensed under a <span itemprop="license"><a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a></span>
+  </p></div>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="modal-log-in-comment">
+  <div class="modal-dialog modal-dialog-prompt modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="media">
+          <figure class="media-left">
+            <img alt="" src="Introduction-to-Gradle_files/icon-alert.svg" width="44" height="44">
+          </figure>
+          <div class="media-body">
+            <h3 class="media-heading">To comment you need to have a Semaphore account.</h3>
+
+            <p>With a Semaphore account you can also test and deploy your open source and private projects for free.</p>
+          </div>
+        </div>
+        <div class="modal-dialog-prompt-actions">
+          <div class="row">
+            <div class="col-sm-6">
+              <a class="btn btn-primary btn-lg-alt btn-block community-create-account" href="https://semaphoreci.com/users/sign_up?redirect_path=/community/tutorials/introduction-to-gradle">Create Account</a>
+            </div>
+            <div class="col-sm-6">
+              <a class="btn btn-default btn-lg-alt btn-block community-sign-in" href="https://semaphoreci.com/users/sign_in?redirect_path=/community/tutorials/introduction-to-gradle">Sign In</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modal-log-in-like">
+  <div class="modal-dialog modal-dialog-prompt modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="media">
+          <figure class="media-left">
+            <img alt="" src="Introduction-to-Gradle_files/icon-alert.svg" width="44" height="44">
+          </figure>
+          <div class="media-body">
+            <h3 class="media-heading">To like a tutorial you need to have a Semaphore account.</h3>
+
+            <p>With a Semaphore account you can also test and deploy your open source and private projects for free.</p>
+          </div>
+        </div>
+        <div class="modal-dialog-prompt-actions">
+          <div class="row">
+            <div class="col-sm-6">
+              <a class="btn btn-primary btn-lg-alt btn-block community-create-account" href="https://semaphoreci.com/users/sign_up?redirect_path=/community/tutorials/introduction-to-gradle">Create Account</a>
+            </div>
+            <div class="col-sm-6">
+              <a class="btn btn-default btn-lg-alt btn-block community-sign-in" href="https://semaphoreci.com/users/sign_in?redirect_path=/community/tutorials/introduction-to-gradle">Sign In</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modal-log-in-subscribe">
+  <div class="modal-dialog modal-dialog-prompt modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="media">
+          <figure class="media-left">
+            <img alt="" src="Introduction-to-Gradle_files/icon-alert.svg" width="44" height="44">
+          </figure>
+          <div class="media-body">
+            <h3 class="media-heading">To subscribe you need to have a Semaphore account.</h3>
+
+            <p>With a Semaphore account you can also test and deploy your open source and private projects for free.</p>
+          </div>
+        </div>
+        <div class="modal-dialog-prompt-actions">
+          <div class="row">
+            <div class="col-sm-6">
+              <a class="btn btn-primary btn-lg-alt btn-block community-create-account" href="https://semaphoreci.com/users/sign_up?redirect_path=/community/tutorials/introduction-to-gradle">Create Account</a>
+            </div>
+            <div class="col-sm-6">
+              <a class="btn btn-default btn-lg-alt btn-block community-sign-in" href="https://semaphoreci.com/users/sign_in?redirect_path=/community/tutorials/introduction-to-gradle">Sign In</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+    <footer class="c-footer u-mb-xs-20 u-mb-60">
+  <div class="container">
+    <div class="row">
+      <div class="c-footer__border"></div>
+      <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+        <h4 class="u-text-normal text-uppercase">Subscribe to our newsletter</h4>
+
+        <form role="newsletter" class="" action="http://semaphoreapp.us5.list-manage.com/subscribe/post?u=72b30480e518914855ca55a85&amp;id=d442447559" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate="">
+          <div class="input-group u-mb-20 u-pt-5">
+            <input name="EMAIL" class="form-control" placeholder="Enter your email address" type="text">
+
+            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;"><input name="b_72b30480e518914855ca55a85_d442447559" type="text"></div>
+
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-semaphore-green" name="subscribe" id="mc-embedded-subscribe" onclick="
+                var _this = this;
+                ga.('send', ('event', 'Blog sidebar', 'Newsletter signup');
+                setTimeout(function() {$(_this).parents('form').submit()}, 150);
+                return false;">Subscribe</button>
+            </span>
+          </div>
+        </form>
+
+        <div class="btn-group u-mb-20" role="group" aria-label="...">
+          <a class="btn btn-muted" href="https://twitter.com/semaphoreci" role="button">
+            <img alt="Follow @semaphoreci on Twitter" src="Introduction-to-Gradle_files/social-twitter-0c64ec7805ca9a5862d8c8bd81bee01e80f456771f720.svg" width="14">
+          </a>
+          <a class="btn btn-muted" href="https://www.facebook.com/SemaphoreCI" role="button">
+            <img alt="Follow SemaphoreCI on Facebook" src="Introduction-to-Gradle_files/social-facebook-2a36f7c6cbdd15290491cd5ef703afe2e7b9fca6ec60.svg" width="7">
+          </a>
+          <a class="btn btn-muted" href="https://semaphoreci.com/blog/feed.xml" role="button">
+            <img alt="Subscribe to blog RSS feed" src="Introduction-to-Gradle_files/social-rss-0703421fcbc17c514812d8e695b3e48e4aec67775882c48b9.svg" width="14">
+          </a>
+        </div>
+
+        <p class="hidden-xs">© 2009-2016 Rendered Text. All rights reserved.</p>
+      </div>
+
+      <div class="col-xs-4 col-sm-2 col-md-2 col-md-offset-1 col-lg-offset-2">
+        <h4 class="u-text-normal text-uppercase">Semaphore</h4>
+        <ul class="list-unstyled">
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/product">Product</a></li>
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/product/docker">Docker</a></li>
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/renderedtext/semaphoreci/changelog">Changelog</a></li>
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/pricing">Pricing</a></li>
+        </ul>
+      </div>
+
+      <div class="col-xs-4 col-sm-2">
+        <h4 class="u-text-normal text-uppercase">Resources</h4>
+        <ul class="list-unstyled">
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/contact">Contact us</a></li>
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/docs">Documentation</a></li>
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/community/tutorials">Tutorials</a></li>
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/blog">Blog</a></li>
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/docs/api.html">API</a></li>
+        </ul>
+      </div>
+
+      <div class="col-xs-4 col-sm-2">
+        <h4 class="u-text-normal text-uppercase">About</h4>
+        <ul class="list-unstyled">
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/about">Our story</a></li>
+          <li><a class="u-link-quiet" href="http://renderedtext.com/">Company</a></li>
+          <li><a class="u-link-quiet" href="https://renderedtext.workable.com/">Jobs</a></li>
+          <!--<li><a class="u-link-quiet" href="#">Media kit</a></li>-->
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/tos">Terms</a></li>
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/privacy">Privacy</a></li>
+          <li><a class="u-link-quiet" href="https://semaphoreci.com/security">Security</a></li>
+        </ul>
+      </div>
+
+      <div class="col-xs-12 visible-xs u-mt-20">
+        <p>© 2009-2016 <a href="http://renderedtext.com/">Rendered Text</a>. All rights reserved.</p>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+
+    <script src="Introduction-to-Gradle_files/angular.js"></script><script src="Introduction-to-Gradle_files/angular-sanitize.js"></script>
+    
+      <script src="Introduction-to-Gradle_files/huv6nfe.js"></script>
+      <script>try{Typekit.load();}catch(e){}</script>
+    
+    <script src="Introduction-to-Gradle_files/application-f3b6d842c8ce4c05f41489c40c1a57a42f71a5c2a27099477.js"></script>
+  
+
+<div class="st-injected-content-generated st-install-RbFV7fCCJRFrhxKo7XGr" data-st-install-key="RbFV7fCCJRFrhxKo7XGr" id="st-injected-content">
+<div class="st-ui-embed st-search-chrome-overlay-output st-search-escape-hide-outputs st-search-zoom-on-mobile" style="display: none;">
+    <div class="st-ui-overlay st-search-hide-outputs"></div>
+  <!-- Swiftype input and results overlay -->
+  <div class="st-ui-container st-ui-container-overlay  st-ui-injected-overlay-container ">
+    <!-- HEADER -->
+    <div class="st-ui-container-header_bar st-position-container">
+        <section class="st-ui-header">
+          <form>
+            <input class="st-default-search-input st-search-set-focus" placeholder="Search this site" id="st-overlay-search-input" autocomplete="off" autocorrect="off" autocapitalize="off" type="text">
+          </form>
+          <span class="st-ui-search-icon"></span>
+
+            <a class="st-ui-close-button st-search-hide-outputs">Close</a>
+
+        </section>
+    </div>
+
+    <!-- LEFT SIDEBAR -->
+    <div class="st-ui-container-left_sidebar st-position-container">
+      <div class="st-ui-injected-search-controls">
+      </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="st-ui-container-right_sidebar st-position-container">
+      <div class="st-ui-injected-container-right_sidebar">
+        <div class="st-ui-injected-search-controls">
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIMARY CONTENT -->
+    <div class="st-ui-container-primary_content st-position-container">
+        <section class="st-ui-slide-autocomplete st-autocomplete-keyboard-navigable st-autocomplete-transient-on-select-and-results" data-st-target-element="#st-overlay-search-input" data-st-active-query-class="active" style="display: none;">
+          <span class="st-ui-type-heading-small">suggested results</span>
+          <div class="st-autocomplete-results"><div class="st-query-present" style="display: none;"></div></div>
+        </section>
+
+        <section class="st-ui-content st-search-results"><div class="st-query-not-present">
+          <span class="st-ui-fallback"></span>
+        </div><div class="st-query-present" style="display: none;"></div></section>
+
+      <section class="st-ui-no-results st-search-suggestions"><div class="st-query-not-present">
+      </div></section>
+    </div>
+
+
+
+    <!-- FOOTER -->
+    <div class="st-ui-container-footer_bar st-position-container">
+      <section class="st-ui-footer">
+          <span class="st-ui-search-summary st-search-summary"></span>
+        <span class="st-ui-pagination st-search-pagination"></span>
+      </section>
+    </div>
+  </div>
+</div>
+<div class="st-default-autocomplete" data-st-target-element=".st-default-search-input" style="display: none; position: absolute; top: 619px; left: 0px; z-index: 999999;">
+  <div class="st-autocomplete-results st-ui-autocomplete"><div class="st-query-present" style="display: none;"></div></div>
+</div>
+<div class="st-default-autocomplete" data-st-target-element=".search-input" style="display: none;">
+  <div class="st-autocomplete-results st-ui-autocomplete"><div class="st-query-present" style="display: none;"></div></div>
+</div>
+</div><iframe id="rufous-sandbox" scrolling="no" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: medium none;" title="Twitter analytics iframe" frameborder="0"></iframe></body></html>

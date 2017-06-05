@@ -1,0 +1,228 @@
+//////////////////////////////////////////////////////////// to make a task as default task
+defaultTasks 'upper', 'task2'
+
+
+task hello << { 
+	println "hai, this is just hello task"
+}
+
+
+
+//////////////////////////////////////////////////////////// make "hello" task execute before "upper"
+task upper << {
+    String word = "hello"
+    println "real : " + word
+    println "better : " + word.toUpperCase()
+}
+
+upper.dependsOn 'hello'
+
+
+//////////////////////////////////////////////////////////// make "hello1" task to execute after "upper1"
+task hello1 << {
+        println "hai, this is hello1"
+}
+
+task upper1 << {
+//    finalizedBy  'hello1'
+    String word1 = "upper1"
+    println "real : " + word1
+    println "better : " + word1.toUpperCase()
+}
+
+upper1.finalizedBy 'hello1'
+
+
+
+//////////////////////////////////////////////////////////// make "upper2" task to execute if "hello2" executed
+task hello2 << {
+        println "hai, this is hello2"
+}
+
+task upper2 << {
+//    shouldRunAfter "hello2"
+    String word2 = "upper2"
+    println "real : " + word2
+    println "better : " + word2.toUpperCase()
+}
+
+hello2.finalizedBy 'upper2'
+
+
+//////////////////////////////////////////////////////////// make "satisfied" task to execute if all tasks executed
+task satisfied << {
+	println "hai all tasks were executed, so im done.......!"
+}
+satisfied.dependsOn tasks.matching{ task -> task.name.startsWith("hello")}
+
+
+//////////////////////////////////////////////////////////// tasks
+task task1 << {
+	println "this is task 1"
+}
+
+task task2 << {
+        println "this is task 2"
+}
+
+
+
+//////////////////////////////////////////////////////////// add some sub_task to the last of "upper"
+upper.doLast {
+	println "hai this is an extension for end of upper"
+}
+
+
+
+//////////////////////////////////////////////////////////// add some sub_task to the first of "upper"
+upper.doFirst {
+        println "hai this is an extension for top of upper"
+}
+
+
+
+//////////////////////////////////////////////////////////// make "task2" to execute after "task1"
+task2.dependsOn 'task1'
+
+
+
+
+//////////////////////////////////////////////////////////// variable declaration and calling
+def cal(n) {
+	n * n
+}
+
+task calculator << {
+	def first = 5
+	println "square of $first = ${cal(first)}"
+	
+}
+
+
+//////////////////////////////////////////////////////////// variable declaration and calling (advanced)
+def cal1 = { x -> x + x }
+
+def cal2(func, argu) {
+	func(func(argu))
+}
+
+task advanced << {
+	def argu = 10
+	def twice = cal2(cal1, argu)
+	println "$twice"
+}
+
+
+//////////////////////////////////////////////////////////// multiple arguments
+
+def onearg(x) {
+	println "the argument is one is $x"
+	x
+}
+
+def twoarg(x, y) {
+	println "the argument is two, they are $x and $y"
+	x + y
+}
+
+def noarg() {
+	println "the argument is nothing"
+}
+
+task argument << {
+//twoarg onearg (299), 399
+onearg 399
+}
+
+//////////////////////////////////////////////////////////// calling function from another function
+task function << {
+
+def fun1 = "1000"
+
+def fun2 = {
+        println "function2 : this is the function for calling function1"
+	println "the value of function1 is $fun1"
+}
+
+def fun3 = fun2
+def fun4 = fun3
+fun4()
+}
+
+
+//////////////////////////////////////////////////////////// listing
+def mylist = [ "list1", "list2", "list3", "list4" ]
+
+def printitem = {
+	item -> println "List Item in one syntax: $item"
+}
+
+task listing << {
+
+	mylist.each(printitem)
+	mylist.each{ 
+		println "just another syntax: $it"
+}
+}
+
+
+//////////////////////////////////////////////////////////// classes
+class class1 {
+	def name = "Akhil"
+	def sur = "Raj"
+	def printname = {
+		println "name is : $name $sur"
+}
+}
+
+task classes << {
+	def myname = new class1()
+
+	myname.printname()
+	myname.name = "Abhi"
+	myname.sur  = "Raj"
+	myname.printname()
+}
+
+
+//////////////////////////////////////////////////////////// copy
+task mycopy(type: Copy)
+mycopy {
+	from '/home/akhil/Desktop/vivasa/gradle/build.gradle-basic-scripts/test1'
+	into 'test2'
+	include '*.php', '*.txt'
+}
+
+
+
+//////////////////////////////////////////////////////////// unzip, tar
+//////////////////////////////////////////////////////////// 1) change the file name name.zip or name.tar
+//////////////////////////////////////////////////////////// 2) change zipTree or tarTree
+task myzip(type: Copy)
+myzip {
+	def src_file = file("/home/akhil/Desktop/vivasa/gradle/build.gradle-basic-scripts/test1/new.zip")
+	def dest_file = file("/home/akhil/Desktop/vivasa/gradle/build.gradle-basic-scripts/test2")
+	from zipTree(src_file)
+	into dest_file
+}
+
+
+//////////////////////////////////////////////////////////// tar.gz, tar.bzip, tar.bzip2
+//////////////////////////////////////////////////////////// change resources.gzip, resources.bzip, resources.bzip2 accordingly
+task mytar(type: Copy)
+mytar {
+        def src_file = file("/home/akhil/Desktop/vivasa/gradle/build.gradle-basic-scripts/test1/new.tar.gz")
+        def dest_file = file("/home/akhil/Desktop/vivasa/gradle/build.gradle-basic-scripts/test2")
+	from tarTree(resources.gzip(src_file))
+	into dest_file
+}
+
+
+
+//////////////////////////////////////////////////////////// delete
+
+task delete(type: Delete)
+delete {
+	def src_file = file("/home/akhil/Desktop/vivasa/gradle/build.gradle-basic-scripts/test2")
+	delete src_file
+}
