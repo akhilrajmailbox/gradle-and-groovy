@@ -330,5 +330,23 @@ input
 
 ==================================================================
 
+ext.DIRECTORY = 'cloud'
+ext.API_KEY = 'some key'
+ext.SNAPSHOT_SERVER_ID = 'some id'
+
+task json(type: Exec) {
+  executable "/bin/bash"
+  args "-c", "if dpkg  --list python-demjson &> /dev/null; then echo 'The system required one software for run this script'; echo 'It may take a while'; \
+              apt-get install python-demjson -y; until (dpkg --list python-demjson &> /dev/null); do sleep 1; done; fi"
+        }
+
+
+task snapshot_file(type: Exec) {
+  executable "/bin/bash"
+  args "-c", "if [ -f /$DIRECTORY/snapshot_id.txt ] && [ `wc -l < /$DIRECTORY/snapshot_id.txt` -ge 1 ];then \
+              cp /$DIRECTORY/snapshot_id.txt /$DIRECTORY/snapshot_deletion.txt && rm -rf /$DIRECTORY/snapshot_id.txt; else rm -rf /$DIRECTORY/snapshot_id.txt; fi"
+        }
+
+==================================================================
 
 
